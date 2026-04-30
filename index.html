@@ -4,67 +4,27 @@
   <meta charset="UTF-8">
   <title>Feign Tracker Pro</title>
   <style>
-    /* DİNAMİK TEMA DEĞİŞKENLERİ */
-    :root {
-      --bg-color: #1e272e;
-      --text-color: white;
-      --panel-bg: #2d3436;
-      --border-color: #353b48;
-      --input-bg: #1e272e;
-      --log-bg: #000000;
-      --card-border: transparent;
-      --heading-color: #ffd32a;
-    }
-
-    body.light-mode {
-      --bg-color: #f5f6fa;
-      --text-color: #2f3640;
-      --panel-bg: #dcdde1;
-      --border-color: #bdc3c7;
-      --input-bg: #ffffff;
-      --log-bg: #ffffff;
-      --card-border: #7f8fa6;
-      --heading-color: #e1b12c;
-    }
-
-    body { font-family: 'Segoe UI', sans-serif; background-color: var(--bg-color); color: var(--text-color); margin: 0; padding: 15px; user-select: none; transition: background-color 0.3s, color 0.3s; }
-    h3 { text-align: center; margin: 0 0 10px 0; color: var(--text-color); }
+    body { font-family: 'Segoe UI', sans-serif; background-color: #1e272e; color: white; margin: 0; padding: 15px; user-select: none; }
+    h3 { text-align: center; margin: 0 0 10px 0; color: #d2dae2; }
     
-    /* SABİT BUTONLAR (SAĞ ÜST VE SAĞ ALT) */
-    .fixed-top-right { position: absolute; top: 15px; right: 15px; display: flex; gap: 8px; z-index: 1000; }
-    .fixed-top-right button { background: var(--panel-bg); color: var(--text-color); border: 1px solid var(--border-color); padding: 8px 12px; border-radius: 6px; cursor: pointer; font-weight: bold; transition: 0.2s; }
-    .fixed-top-right button:hover { opacity: 0.8; }
-
-    .fixed-bottom-right { position: fixed; bottom: 20px; right: 20px; z-index: 1000; display: flex; flex-direction: column; align-items: flex-end; }
-    #feedback-btn { background: #0fbcf9; color: #1e272e; border: none; padding: 12px 18px; border-radius: 25px; cursor: pointer; font-weight: bold; box-shadow: 0 4px 6px rgba(0,0,0,0.3); transition: 0.2s; }
-    #feedback-btn:hover { transform: scale(1.05); }
-    
-    #feedback-panel { background: var(--panel-bg); border: 1px solid var(--border-color); padding: 15px; border-radius: 8px; margin-bottom: 10px; width: 250px; box-shadow: 0 5px 15px rgba(0,0,0,0.5); display: none; flex-direction: column; gap: 10px; }
-    #feedback-panel textarea { width: 100%; height: 80px; resize: none; border-radius: 4px; border: 1px solid var(--border-color); background: var(--input-bg); color: var(--text-color); padding: 5px; box-sizing: border-box; font-family: inherit; }
-    #feedback-panel button { background: #0be881; color: black; border: none; padding: 8px; border-radius: 4px; cursor: pointer; font-weight: bold; }
-    
-    #history-btn { background: #f39c12; color: #1e272e; border: none; padding: 12px 18px; border-radius: 25px; cursor: pointer; font-weight: bold; box-shadow: 0 4px 6px rgba(0,0,0,0.3); transition: 0.2s; margin-bottom: 10px; width: 100%; text-align: center; }
-    #history-btn:hover { transform: scale(1.05); }
-    
-    #history-panel { background: var(--panel-bg); border: 1px solid var(--border-color); padding: 15px; border-radius: 8px; margin-bottom: 10px; width: 320px; box-shadow: 0 5px 15px rgba(0,0,0,0.5); display: none; flex-direction: column; gap: 10px; max-height: 400px; overflow-y: auto; }
-    .history-record { border-bottom: 1px solid var(--border-color); padding-bottom: 10px; margin-bottom: 10px; font-size: 12px; }
-    .history-date { font-weight: bold; color: var(--heading-color); margin-bottom: 5px; font-size: 14px; border-bottom: 1px dashed var(--border-color); padding-bottom: 3px;}
-    
-    .top-controls { display: flex; gap: 5px; margin-bottom: 10px; margin-top: 30px; }
+    .top-controls { display: flex; gap: 5px; margin-bottom: 10px; }
     .top-controls button { flex: 1; padding: 8px; font-weight: bold; cursor: pointer; border: none; border-radius: 4px; }
 
+    /* Izgara ve Kart Düzeni */
     .grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
     .player-card { 
       min-height: 55px; height: auto; padding: 5px 0; border-radius: 8px; cursor: pointer; 
       display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
-      font-size: 11px; font-weight: bold; border: 2px solid var(--card-border); 
+      font-size: 11px; font-weight: bold; border: 2px solid transparent; 
       transition: all 0.1s; position: relative; word-wrap: break-word; line-height: 1.2;
     }
     .player-card:active { transform: scale(0.95); }
     
+    /* Kart İçi Rol Etiketleri */
     .roles-container { display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 3px; margin-top: 4px; width: 100%; }
     .role-badge { background: rgba(0, 0, 0, 0.45); color: white; padding: 2px 4px; border-radius: 4px; font-size: 9px; font-weight: normal; text-shadow: none; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 90%; }
     
+    /* Feign Orijinal Renk Paleti */
     .white { background-color: #F3F3F3; color: black; border: 1px solid #ccc; }
     .orange { background-color: #FA8A1C; color: black; }
     .purple { background-color: #692985; color: white; }
@@ -81,8 +41,12 @@
     
     .status-icon { position: absolute; top: -5px; right: -5px; font-size: 14px; background: #2f3640; border-radius: 50%; width: 18px; height: 18px; display: none; align-items: center; justify-content: center; }
 
-    .panel { margin-top: 10px; padding: 10px; background-color: var(--panel-bg); border-radius: 6px; display: none; text-align: center; border: 1px solid var(--border-color); }
-    .action-btn { background-color: #485460; color: white; border: none; padding: 6px 10px; margin: 3px; border-radius: 4px; cursor: pointer; font-size: 11px; font-weight: bold; }
+    /* Aksiyon ve Alt Menü Panelleri */
+    .panel { margin-top: 10px; padding: 10px; background-color: #2d3436; border-radius: 6px; display: none; text-align: center; }
+    .action-btn { 
+      background-color: #485460; color: white; border: none; padding: 6px 10px; margin: 3px; 
+      border-radius: 4px; cursor: pointer; font-size: 11px; font-weight: bold;
+    }
     .action-btn:hover { background-color: #808e9b; }
     .cancel-btn { background-color: #ff3f34; }
     .safe-btn { background-color: #0be881; color: black; }
@@ -90,159 +54,239 @@
     .eylem-btn { background-color: #f39c12; color: black; }
 
     .role-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; margin-bottom: 8px; }
+    
+    /* Rol Renklendirmeleri */
     .role-masum { background-color: #0be881; color: black; }
     .role-gri { background-color: #808e9b; color: white; }
     .role-hain { background-color: #ff3f34; color: white; }
     .role-tarafsiz { background-color: #4bcffa; color: black; }
 
-    #bottom-section { display: flex; gap: 15px; margin-top: 15px; height: 45vh; min-height: 350px; }
-    #log-container, #notes-container { flex: 1; display: flex; flex-direction: column; height: 100%; }
-    #log-wrapper { flex: 1; background: var(--log-bg); padding: 10px; border-radius: 6px; overflow-y: auto; border: 1px solid var(--border-color); height: 0; }
-    #log-list { list-style: none; padding: 0; margin: 0; font-size: 13px; user-select: text; -webkit-user-select: text; cursor: text; }
-    #log-list li { padding: 4px 0; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; }
+    #log-container { margin-top: 10px; background: #000000; padding: 10px; border-radius: 6px; height: 180px; overflow-y: auto; }
+    #log-list { list-style: none; padding: 0; margin: 0; font-size: 13px; }
+    #log-list li { padding: 4px 0; border-bottom: 1px solid #333; display: flex; justify-content: space-between; align-items: center; }
     .delete-log { background: none; border: none; color: #ff3f34; cursor: pointer; font-weight: bold; font-size: 12px; margin-left: 10px; }
-    
-    #notes-wrapper { flex: 1; background: var(--log-bg); padding: 10px; border-radius: 6px; display: flex; flex-direction: column; border: 1px solid var(--border-color); }
-    #manual-notes { flex: 1; background: transparent; color: var(--text-color); border: none; resize: none; outline: none; font-family: inherit; font-size: 13px; line-height: 1.5; padding-top: 5px; height: 100%; }
-
-    #decision-title { font-size: 24px !important; font-weight: 900 !important; color: var(--heading-color) !important; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); margin-bottom: 12px !important; text-align: center; }
-    body.light-mode #decision-title { text-shadow: none; }
-    #decision-content { font-size: 16px !important; font-weight: 500 !important; color: var(--text-color) !important; margin-bottom: 22px !important; text-align: center; line-height: 1.5; }
-    #decision-content b { color: var(--heading-color); font-size: 17px; }
-
-    body { max-width: 1500px; margin: 0 auto; padding: 10px; }
-       
-    @media (max-width: 900px) {
-      #bottom-section { flex-direction: column !important; height: auto !important; }
-      #log-container, #notes-container { height: 250px !important; width: 100% !important; margin-bottom: 10px;}
-      #decision-buttons > div { flex-direction: column !important; width: 100% !important; }
-      #decision-buttons .action-btn { width: 100% !important; margin-top: 5px !important; }
-      #decision-title { font-size: 20px !important; }
-      #decision-content { font-size: 14px !important; margin-bottom: 15px !important; }
-      .player-card { min-height: 45px; font-size: 10px; padding: 4px 0; }
-    }
   </style>
-  <meta name="description" content="Feign Tracker">
+  <title>Feign Tracker - Profesyonel Feign Oyuncu Takip Aracı</title>
+  <meta name="description" content="Feign oyununda rolleri, eylemleri ve şüpheleri unutmayın. Ücretsiz, hızlı ve profesyonel Feign takip yardımcısı ile hayatta kalın.">
+  <meta name="keywords" content="feign, feign tracker, feign yardımcısı, feign rolleri, feign oyun takibi">
+  <meta property="og:title" content="Feign Tracker - Stratejinizi Güçlendirin">
+  <meta property="og:description" content="Kim hangi rolü iddia etti? Kim nereye gitti? Her şeyi tek tıkla not alın.">
+  <meta property="og:url" content="https://feigntracker.com">
+  <meta property="og:type" content="website">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9436273957773353" crossorigin="anonymous"></script>
 </head>
 <body>
 
-  <!-- SAĞ ÜST: TEMA VE DİL KONTROLLERİ -->
-  <div class="fixed-top-right">
-    <button id="theme-toggle" title="Gece/Gündüz Modu">☀️ Mode</button>
-    <button id="lang-toggle" title="Dil Değiştir / Language">🌐 EN</button>
-  </div>
-
   <div class="top-controls">
-    <button id="btn-new-turn" style="background-color: #0fbcf9; color: black;" data-i18n="newTurn">Yeni Tura Geç</button>
-    <button id="btn-reset-game" style="background-color: #ff3f34; color: white;" data-i18n="resetGame">Oyunu Sıfırla</button>
+    <button id="btn-new-turn" style="background-color: #0fbcf9; color: black;">Yeni Tura Geç</button>
+    <button id="btn-reset-game" style="background-color: #ff3f34; color: white;">Oyunu Sıfırla</button>
   </div>
   
   <div class="grid" id="player-grid">
-    <div class="player-card white" id="Beyaz" data-color="White">Beyaz<span class="status-icon"></span></div>
-    <div class="player-card orange" id="Turuncu" data-color="Orange">Turuncu<span class="status-icon"></span></div>
-    <div class="player-card purple" id="Mor" data-color="Purple">Mor<span class="status-icon"></span></div>
-    <div class="player-card dark-green" id="Koyu Yeşil" data-color="Dark Green">Koyu<br>Yeşil<span class="status-icon"></span></div>
-    <div class="player-card blue" id="Mavi" data-color="Blue">Mavi<span class="status-icon"></span></div>
+    <div class="player-card white" id="Beyaz">Beyaz<span class="status-icon"></span></div>
+    <div class="player-card orange" id="Turuncu">Turuncu<span class="status-icon"></span></div>
+    <div class="player-card purple" id="Mor">Mor<span class="status-icon"></span></div>
+    <div class="player-card dark-green" id="Koyu Yeşil">Koyu<br>Yeşil<span class="status-icon"></span></div>
+    <div class="player-card blue" id="Mavi">Mavi<span class="status-icon"></span></div>
     
-    <div class="player-card red" id="Kırmızı" data-color="Red">Kırmızı<span class="status-icon"></span></div>
-    <div class="player-card yellow" id="Sarı" data-color="Yellow">Sarı<span class="status-icon"></span></div>
-    <div class="player-card light-green" id="Açık Yeşil" data-color="Light Green">Açık<br>Yeşil<span class="status-icon"></span></div>
-    <div class="player-card cyan" id="Turkuaz" data-color="Cyan">Turkuaz<span class="status-icon"></span></div>
-    <div class="player-card light-pink" id="Açık Pembe" data-color="Light Pink">Açık<br>Pembe<span class="status-icon"></span></div>
+    <div class="player-card red" id="Kırmızı">Kırmızı<span class="status-icon"></span></div>
+    <div class="player-card yellow" id="Sarı">Sarı<span class="status-icon"></span></div>
+    <div class="player-card light-green" id="Açık Yeşil">Açık<br>Yeşil<span class="status-icon"></span></div>
+    <div class="player-card cyan" id="Turkuaz">Turkuaz<span class="status-icon"></span></div>
+    <div class="player-card light-pink" id="Açık Pembe">Açık<br>Pembe<span class="status-icon"></span></div>
     
-    <div class="player-card brown" id="Kahverengi" data-color="Brown">Kahve<span class="status-icon"></span></div>
-    <div class="player-card magenta" id="Koyu Pembe" data-color="Magenta">Koyu<br>Pembe<span class="status-icon"></span></div>
-    <div class="player-card bright-orange" id="Parlak Turuncu" data-color="Bright Orange">Parlak<br>Turuncu<span class="status-icon"></span></div>
+    <div class="player-card brown" id="Kahverengi">Kahve<span class="status-icon"></span></div>
+    <div class="player-card magenta" id="Koyu Pembe">Koyu<br>Pembe<span class="status-icon"></span></div>
+    <div class="player-card bright-orange" id="Parlak Turuncu">Parlak<br>Turuncu<span class="status-icon"></span></div>
   </div>
 
+  <!-- ANA AKSİYON PANELİ -->
   <div class="panel" id="action-panel">
     <strong id="selected-name" style="display:block; margin-bottom: 8px; font-size: 14px;"></strong>
     <div>
-      <button class="action-btn safe-btn" onclick="markPlayer('safe')" data-i18n="safe">✔ Güvenli</button>
-      <button class="action-btn sus-btn" onclick="markPlayer('sus')" data-i18n="sus">✘ Şüpheli</button>
+      <button class="action-btn safe-btn" onclick="markPlayer('safe')">✔ Güvenli</button>
+      <button class="action-btn sus-btn" onclick="markPlayer('sus')">✘ Şüpheli</button>
     </div>
-    <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 8px 0;">
-    <button class="action-btn" onclick="openPanel('role-panel')" data-i18n="setRole">Rol Belirt</button>
-    <button class="action-btn" id="btn-went" data-i18n="wentTo">Şuraya Gitti ➔</button>
-    <button class="action-btn eylem-btn" onclick="openPanel('eylem-panel')" data-i18n="actionSpecial">⚡ Eylem (Rol Özel)</button>
-    <button class="action-btn eylem-btn" style="background-color: #9b59b6; color: white;" onclick="openPanel('gelen-eylem-panel')" data-i18n="incomingActions">📥 Gelen Eylemler</button>
-    <button class="action-btn" id="btn-stayed" data-i18n="stayedHome">Evde Kaldı</button>
-    <button class="action-btn" id="btn-went-out" data-i18n="wentOut">Dışarı Çıktı (Belirsiz)</button>
+    <hr style="border: 0; border-top: 1px solid #555; margin: 8px 0;">
+    <button class="action-btn" onclick="openPanel('role-panel')">Rol Belirt</button>
+    <button class="action-btn" id="btn-went">Şuraya Gitti ➔</button>
+    <button class="action-btn eylem-btn" onclick="openPanel('eylem-panel')">⚡ Eylem (Rol Özel)</button>
+    <button class="action-btn eylem-btn" style="background-color: #9b59b6; color: white;" onclick="openPanel('gelen-eylem-panel')">📥 Gelen Eylemler</button>
+    <button class="action-btn" id="btn-stayed">Evde Kaldı</button>
+    <button class="action-btn" id="btn-went-out">Dışarı Çıktı (Belirsiz)</button>
     <br>
-    <button class="action-btn cancel-btn" onclick="resetSelection()" data-i18n="cancel">İptal</button>
+    <button class="action-btn cancel-btn" onclick="resetSelection()">İptal</button>
   </div>
 
+  <!-- ROL SEÇİM PANELİ -->
   <div class="panel" id="role-panel">
-    <strong style="display:block; margin-bottom: 8px; font-size: 13px;" data-i18n="chooseRole">Rol Seçin</strong>
-    <div class="role-grid" id="role-grid-container">
-      <!-- JS ile dinamik çizilir -->
+    <strong style="display:block; margin-bottom: 8px; font-size: 13px;">Rol Seçin</strong>
+    <div class="role-grid">
+      <button class="action-btn role-masum" onclick="setRole('Doktor')">Doktor</button>
+      <button class="action-btn role-masum" onclick="setRole('Deli')">Deli</button>
+      <button class="action-btn role-gri" onclick="setRole('Polis')">Polis</button>
+      <button class="action-btn role-gri" onclick="setRole('Gözcü')">Gözcü</button>
+      <button class="action-btn role-gri" onclick="setRole('Dedektif')">Dedektif</button>
+      <button class="action-btn role-gri" onclick="setRole('Tuzakçı')">Tuzakçı</button>
+      <button class="action-btn role-gri" onclick="setRole('İspiyoncu')">İspiyoncu</button>
+      <button class="action-btn role-gri" onclick="setRole('Provakatör')">Provakatör</button>
+      <button class="action-btn role-gri" onclick="setRole('İzci')">İzci</button>
+      <button class="action-btn role-hain" onclick="setRole('Temizlikçi')">Temizlikçi</button>
+      <button class="action-btn role-hain" onclick="setRole('Suçlayıcı')">Suçlayıcı</button>
+      <button class="action-btn role-tarafsiz" onclick="setRole('Survivor')">Survivor</button>
+      <button class="action-btn role-tarafsiz" onclick="setRole('Seri Katil')">Seri Katil</button>
+      <button class="action-btn role-tarafsiz" onclick="setRole('Bombacı')">Bombacı</button>
+      <button class="action-btn role-tarafsiz" onclick="setRole('Hırsız')">Hırsız</button>
+      <button class="action-btn role-tarafsiz" onclick="setRole('Büyücü')">Büyücü</button>
+      <button class="action-btn role-tarafsiz" onclick="setRole('Hortlak')">Hortlak</button>
     </div>
-    <button class="action-btn cancel-btn" style="width: 100%; margin-top: 5px;" onclick="openPanel('action-panel')" data-i18n="back">Geri</button>
+    <button class="action-btn cancel-btn" style="width: 100%; margin-top: 5px;" onclick="openPanel('action-panel')">Geri</button>
   </div>
 
+  <!-- EYLEM BAŞLATMA PANELİ -->
   <div class="panel" id="eylem-panel">
-    <strong style="display:block; margin-bottom: 8px; font-size: 13px;" data-i18n="whoseAction">Hangi Rolün Eylemi?</strong>
-    <div class="role-grid" id="action-grid-container">
-       <!-- JS ile dinamik çizilir -->
+    <strong style="display:block; margin-bottom: 8px; font-size: 13px;">Hangi Rolün Eylemi?</strong>
+    <div class="role-grid">
+      <button class="action-btn role-masum" onclick="startFlow('doktor_target')">Doktor</button>
+      <button class="action-btn role-gri" onclick="startFlow('polis_target')">Polis</button>
+      <button class="action-btn role-gri" onclick="startFlow('gozcu_target')">Gözcü</button>
+      <button class="action-btn role-gri" onclick="startFlow('dedektif_target')">Dedektif</button>
+      <button class="action-btn role-gri" onclick="startFlow('tuzakci_target')">Tuzakçı</button>
+      <button class="action-btn role-gri" onclick="startFlow('ispiyoncu_target')">İspiyoncu</button>
+      <button class="action-btn role-gri" onclick="startFlow('provokator_target')">Provakatör</button>
+      <button class="action-btn role-gri" onclick="startFlow('izci_target')">İzci</button>
+      <button class="action-btn role-tarafsiz" onclick="showSurvivorDecision()">Survivor</button>
     </div>
-    <button class="action-btn cancel-btn" style="width: 100%;" onclick="openPanel('action-panel')" data-i18n="back">Geri</button>
+    <button class="action-btn cancel-btn" style="width: 100%;" onclick="openPanel('action-panel')">Geri</button>
   </div>
 
+  <!-- KARAR VE DİNAMİK SEÇİM PANELİ -->
   <div class="panel" id="decision-panel">
-    <strong id="decision-title" style="display:block; margin-bottom: 8px; font-size: 13px; color: var(--heading-color);">...</strong>
+    <strong id="decision-title" style="display:block; margin-bottom: 8px; font-size: 13px; color: #f1c40f;">...</strong>
     <div id="decision-content" style="margin-bottom: 10px; font-size: 11px;"></div>
     <div id="decision-buttons"></div>
     <br>
-    <button class="action-btn cancel-btn" style="width: 100%;" onclick="resetSelection()" data-i18n="cancelSelection">İptali Seç</button>
+    <button class="action-btn cancel-btn" style="width: 100%;" onclick="resetSelection()">İptali Seç</button>
   </div>
 
+  <!-- GELEN EYLEM PANELİ -->
   <div class="panel" id="gelen-eylem-panel">
-    <strong style="display:block; margin-bottom: 8px; font-size: 13px;" data-i18n="whatHappened">Bu Oyuncuya Ne Yapıldı?</strong>
-    <div class="role-grid" id="incoming-action-container">
-      <!-- JS ile dinamik çizilir -->
+    <strong style="display:block; margin-bottom: 8px; font-size: 13px;">Bu Oyuncuya Ne Yapıldı?</strong>
+    <div class="role-grid">
+      <button class="action-btn role-masum" onclick="directLog('DOKTOR geldi ve KURTARDI.')">Doktor Kurtardı</button>
+      <button class="action-btn role-masum" onclick="directLog('DOKTOR geldi ama kurtarmadı.')">Doktor Geldi (Kurtarmadı)</button>
+      <button class="action-btn role-gri" onclick="directLog('POLİS geldi ve TUTTU.')">Polis Tuttu</button>
+      <button class="action-btn role-hain" onclick="directLog('TUZAĞA BASTI.')">Tuzağa Bastı</button>
+      <button class="action-btn role-hain" onclick="directLog('PROVOKATÖR geldi.')">Provokatör Geldi</button>
     </div>
-    <button class="action-btn cancel-btn" style="width: 100%; margin-top: 5px;" onclick="openPanel('action-panel')" data-i18n="back">Geri</button>
+    <button class="action-btn cancel-btn" style="width: 100%; margin-top: 5px;" onclick="openPanel('action-panel')">Geri</button>
   </div>
+
+  <style>
+    #bottom-section { display: flex; gap: 15px; margin-top: 15px; height: 400px; }
+    #log-container { flex: 1; background: #000000; padding: 10px; border-radius: 6px; overflow-y: auto; margin-top: 0; height: auto; }
+    #notes-container { flex: 1; background: #000000; padding: 10px; border-radius: 6px; display: flex; flex-direction: column; }
+    #manual-notes { flex: 1; background: transparent; color: #d2dae2; border: none; resize: none; outline: none; font-family: inherit; font-size: 13px; line-height: 1.5; padding-top: 5px; }
+    #manual-notes::placeholder { color: #555; }
+
+    #decision-title {
+      font-size: 24px !important;
+      font-weight: 900 !important;
+      color: #ffd32a !important; 
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+      margin-bottom: 12px !important;
+      text-align: center;
+      letter-spacing: 0.5px;
+    }
+
+    #decision-content {
+      font-size: 16px !important;
+      font-weight: 500 !important;
+      color: #ffffff !important;
+      margin-bottom: 22px !important;
+      text-align: center;
+      line-height: 1.5;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+    }
+    
+    #decision-content b {
+      color: #ffd32a;
+      font-size: 17px;
+    }
+       
+    body {
+      max-width: 1500px; 
+      margin: 0 auto;    
+      padding: 10px;
+    }
+
+    #bottom-section {
+      display: flex;
+      gap: 15px;
+      margin-top: 15px;
+      height: 45vh; 
+      min-height: 350px; 
+    }
+
+    #log-container, #notes-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    #log-list {
+      flex: 1;
+      overflow-y: auto;
+      height: 0; 
+      padding-right: 5px; 
+    }
+
+    #manual-notes {
+      flex: 1;
+      height: 100%;
+    }
+       
+    @media (max-width: 900px) {
+      #bottom-section {
+        flex-direction: column !important;
+        height: auto !important; 
+      }
+      #log-container, #notes-container {
+        height: 250px !important;
+        width: 100% !important;
+      }
+      #decision-buttons > div {
+        flex-direction: column !important;
+        width: 100% !important;
+      }
+      #decision-buttons .action-btn {
+        width: 100% !important;
+        margin-top: 5px !important;
+      }
+      #decision-title { font-size: 20px !important; }
+      #decision-content { font-size: 14px !important; margin-bottom: 15px !important; }
+      .player-card { min-height: 45px; font-size: 10px; padding: 4px 0; }
+      .role-badge { font-size: 8px; }
+    }
+  </style>
 
   <div id="bottom-section">
     <div id="log-container">
-      <div id="log-header-controls" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; padding-bottom: 5px; border-bottom: 1px solid var(--border-color);">
-        <h3 style="margin: 0; color: var(--heading-color); font-size: 16px;" data-i18n="actionHistory">Aksiyon Geçmişi</h3>
-        <input type="text" id="log-search" placeholder="Geçmişte ara..." style="padding: 6px 10px; border-radius: 4px; border: 1px solid var(--border-color); background-color: var(--input-bg); color: var(--text-color); outline: none; width: 140px; font-size: 13px;">
+      <div id="log-header-controls" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; padding-bottom: 5px; border-bottom: 1px solid #353b48;">
+        <h3 style="margin: 0; color: #ffd32a; font-size: 16px;">Aksiyon Geçmişi</h3>
+        <input type="text" id="log-search" placeholder="Geçmişte ara (Örn: Mavi)..." style="padding: 6px 10px; border-radius: 4px; border: 1px solid #353b48; background-color: #1e272e; color: #d2dae2; outline: none; width: 160px; font-size: 13px;">
       </div>
-      <div id="log-wrapper">
-         <ul id="log-list"></ul>
-      </div>
+      <ul id="log-list" style="user-select: text; -webkit-user-select: text; cursor: text; list-style-type: none; padding-left: 0;"></ul>
     </div>
     
     <div id="notes-container">
-      <div style="font-weight: bold; margin-bottom: 5px; color: #808e9b; font-size: 12px;" data-i18n="freeNotes">Serbest Notlar</div>
-      <div id="notes-wrapper">
-         <textarea id="manual-notes" placeholder="Şüphelerinizi buraya yazabilirsiniz..."></textarea>
-      </div>
+      <div style="font-weight: bold; margin-bottom: 5px; color: #808e9b; font-size: 12px;">Serbest Notlar</div>
+      <textarea id="manual-notes" placeholder="Şüphelerinizi, zamanlamaları veya çelişkileri buraya yazabilirsiniz..."></textarea>
     </div>
   </div>
 
-  <!-- SAĞ ALT: GEÇMİŞ VE GERİ BİLDİRİM FORMU -->
-  <div class="fixed-bottom-right">
-    
-    <div id="history-panel">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-        <strong style="color: var(--text-color); font-size: 15px;" data-i18n="pastGames">Geçmiş Oyunlar</strong>
-        <button id="clear-history-btn" data-i18n="clearHistory" style="background: #ff3f34; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 11px; font-weight: bold;">Temizle</button>
-      </div>
-      <div id="history-list-container"></div>
-    </div>
-    <button id="history-btn" data-i18n="historyBtn">📜 Oyun Geçmişi</button>
-
-    <div id="feedback-panel">
-      <strong style="color: var(--text-color); font-size: 14px;" data-i18n="feedbackTitle">Bize Ulaşın</strong>
-      <textarea id="feedback-text" placeholder="Görüş, öneri veya hata bildirimi..."></textarea>
-      <button id="send-feedback-btn" style="width:100%;" data-i18n="send">Gönder</button>
-    </div>
-    <button id="feedback-btn" data-i18n="feedbackBtn">💬 Geri Bildirim</button>
-  </div>
-<h2 style="color: #ffd32a; font-size: 22px; margin-bottom: 15px; border-bottom: 1px solid #353b48; padding-bottom: 10px; text-align: center; margin-top: 40px;">Kapsamlı Feign Rolleri ve Stratejik İpuçları</h2>
+  <h2 style="color: #ffd32a; font-size: 22px; margin-bottom: 15px; border-bottom: 1px solid #353b48; padding-bottom: 10px; text-align: center; margin-top: 40px;">Kapsamlı Feign Rolleri ve Stratejik İpuçları</h2>
   <p style="margin-bottom: 15px;">
     Feign oyununda rollerin en büyük taktiksel derinliği, birçok yeteneğin hem Masum hem de Hain takımında yer alabilmesidir. Rollerin hangi takımda nasıl çalıştığını bilmek ve renk kodlarına hakim olmak, Feign Tracker üzerinde notlarınızı çok daha isabetli tutmanızı sağlar:
   </p>
@@ -280,6 +324,7 @@
     <li style="margin-bottom: 8px;"><strong>Hırsız (Thief):</strong> Gece bir oyuncuyu öldürüp onun takımını ve rolünü çalar. Oyuna tamamen yeni bir kimlikle devam eder.</li>
     <li style="margin-bottom: 8px;"><strong>Hortlak (Ghost):</strong> Gündüz oylamasında kendini astırmayı hedefleyen tek roldür. Eğer kendini astırabilirse, diğer tüm takımlar kaybeder ve oyunu tek başına o kazanır.</li>
   </ul>
+
   <script src="./renderer.js"></script>
 
   <!-- SAYFA ALTI (FOOTER) LINKLERI -->
