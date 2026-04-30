@@ -331,14 +331,38 @@
         Feign, oyuncuların hayatta kalmak ve köydeki hainleri bulmak için zekalarını, mantıklarını ve ikna kabiliyetlerini yarıştırdığı oldukça popüler bir sosyal çıkarım ve strateji oyunudur. Ancak oyun ilerledikçe; kimin kime gittiğini, kimin hangi rolü iddia ettiğini ve gece yaşanan karmaşık olayları akılda tutmak imkansız hale gelebilir. İşte <strong>Feign Tracker (Feign Yardımcısı)</strong> tam bu noktada devreye girer. Bu sistem, oyun oturumlarında manuel not alma derdini ortadan kaldıran, oyuncu beyanlarını renklere göre eşleştirmenizi ve çelişkileri anında yakalamanızı sağlayan profesyonel bir takip aracıdır.
       </p>
 
-      <h2 style="color: #ffd32a; font-size: 22px; margin-bottom: 15px; border-bottom: 1px solid #353b48; padding-bottom: 10px;">Feign Rolleri ve Stratejik İpuçları</h2>
+      <h2 style="color: #ffd32a; font-size: 22px; margin-bottom: 15px; border-bottom: 1px solid #353b48; padding-bottom: 10px;">Kapsamlı Feign Rolleri ve Stratejik İpuçları</h2>
       <p style="margin-bottom: 15px;">
-        Feign oyununda karakterler üç ana gruba ayrılır. Başarılı bir mantık yürütmek için bu grupların dinamiklerini ve yalan söyleme potansiyellerini iyi analiz etmek gerekir:
+        Feign oyununda her karakterin oyunu tek başına şekillendirebilecek benzersiz yetenekleri vardır. Uygulamamızı kullanırken bu rollerin mekaniklerini tam olarak bilmek, tuttuğunuz notların ve aksiyon geçmişinin değerini artırır. İşte oyundaki tüm rollerin detaylı rehberi:
       </p>
+
+      <h3 style="color: #0fbcf9; font-size: 18px; margin-top: 20px; margin-bottom: 10px;">1. Masumlar (Innocents) - Köyü Savunanlar</h3>
       <ul style="margin-bottom: 20px; padding-left: 20px;">
-        <li style="margin-bottom: 8px;"><strong>Masumlar (Innocents):</strong> Köyün güvenliğini sağlamakla görevlidirler. Doktor (Doctor) hayati müdahaleler yaparken, Polis (Police) şüphelilerin evden çıkışını engeller. Gözcü (Lookout) ve İzci (Tracker) gibi rollerin sağladığı istihbarat, masumların en büyük silahıdır. Sistemimiz üzerinden özellikle "Deli (Insane)" rolünün yanlış bilgi verebilme ihtimalini işaretleyerek analizlerinizi koruma altına alabilirsiniz.</li>
-        <li style="margin-bottom: 8px;"><strong>Hainler (Imposters):</strong> Temizlikçi (Cleaner) ve Suçlayıcı (Blamer) gibi rollerle masumların arasına sızarak kafa karışıklığı yaratırlar. Hainleri bulmanın en garantili yolu, Feign Tracker üzerindeki "Aksiyon Geçmişi" tablosunu kullanarak gece yapılan eylemler ile sabah söylenen yalanları çapraz sorguya çekmektir.</li>
-        <li style="margin-bottom: 8px;"><strong>Tarafsızlar (Neutrals):</strong> Kendi bağımsız kazanma koşulları vardır. Bombacı (Bomber) veya Seri Katil (Serial Killer) gibi roller oyunun gidişatını bir anda değiştirebilir. Survivor gibi roller ise taktiksel olarak sessiz kalmayı tercih edebilir.</li>
+        <li style="margin-bottom: 8px;"><strong>Doktor (Doctor):</strong> Gece seçtiği bir oyuncuyu iyileştirir ve onu olası saldırılardan korur. Kendini koruyamaz.</li>
+        <li style="margin-bottom: 8px;"><strong>Polis (Police):</strong> Seçtiği kişinin gece evden çıkmasını ve yeteneğini kullanmasını engeller. Deli bir polis, aslında kimseyi durduramaz ancak durdurduğunu sanır.</li>
+        <li style="margin-bottom: 8px;"><strong>Gözcü (Lookout):</strong> Gece seçtiği kişinin evine kimlerin ziyarete geldiğini görür. Masumların en önemli istihbarat kaynağıdır.</li>
+        <li style="margin-bottom: 8px;"><strong>Dedektif (Detective):</strong> Hedefindeki kişinin rolünü tam olarak öğrenir. Ancak hainlerin kurbanı olup yönlendirilmiş yalan bir bilgi de edinebilir.</li>
+        <li style="margin-bottom: 8px;"><strong>İzci (Tracker):</strong> Seçtiği oyuncunun gece hangi eve gittiğini takip eder. "Gözcü" ile birlikte çalışırsa köydeki tüm yalanları ortaya çıkarabilir.</li>
+        <li style="margin-bottom: 8px;"><strong>Tuzakçı (Trapper):</strong> Kendi evine gelen ilk kişiyi tuzağa düşürür, onun yeteneğini engeller ve o kişinin rolünü öğrenir.</li>
+        <li style="margin-bottom: 8px;"><strong>İspiyoncu (Snitch):</strong> Gece kimin hangi rolde olduğunu araştırır. Doğru bilgiyi köy ile paylaşması oyun kazandırır ancak hainlerin ilk hedeflerinden biridir.</li>
+        <li style="margin-bottom: 8px;"><strong>Provokatör (Provocateur):</strong> Kışkırttığı oyuncunun normal eylemini iptal ettirir ve o oyuncunun gece kendine (Provokatör'e) gelmesini sağlar.</li>
+        <li style="margin-bottom: 8px;"><strong>Deli (Insane):</strong> Oyundaki en büyük kaos unsurudur. Kendini Doktor, Dedektif veya Polis gibi önemli bir rolde sanır ancak gece edindiği tüm bilgiler yanlıştır (veya eylemleri geçersizdir). Feign Tracker üzerinde "Deli" olasılığını her zaman not almak kritik önem taşır.</li>
+      </ul>
+
+      <h3 style="color: #ff5e57; font-size: 18px; margin-top: 20px; margin-bottom: 10px;">2. Hainler (Imposters) - Köyü Karıştıranlar</h3>
+      <ul style="margin-bottom: 20px; padding-left: 20px;">
+        <li style="margin-bottom: 8px;"><strong>Temizlikçi (Cleaner):</strong> Gece bir oyuncuyu öldürür ve onun rolünü gizler. Ölü bulunduğunda cesedin rolü bilinmez, bu da sabah yapılan mantık yürütmelerini kilitler.</li>
+        <li style="margin-bottom: 8px;"><strong>Suçlayıcı (Blamer):</strong> Cinayet işlerken hedefinin evine giden izleri, başka bir masumun üzerine atar. Böylece Gözcü veya Dedektif gibi istihbarat rollerini manipüle edip yanlış kişiyi astırmayı hedefler.</li>
+      </ul>
+
+      <h3 style="color: #0be881; font-size: 18px; margin-top: 20px; margin-bottom: 10px;">3. Tarafsızlar (Neutrals) - Kendi Tarafında Olanlar</h3>
+      <ul style="margin-bottom: 20px; padding-left: 20px;">
+        <li style="margin-bottom: 8px;"><strong>Survivor (Hayatta Kalan):</strong> Tek amacı oyunun sonuna kadar hayatta kalmaktır. Geceleri sınırlı sayıda kendini koruma zırhı kullanabilir.</li>
+        <li style="margin-bottom: 8px;"><strong>Seri Katil (Serial Killer):</strong> Herkesi öldürüp köyde tek başına kalmayı hedefler. Hainlerin de masumların da ortak düşmanıdır, tek başına çalışır.</li>
+        <li style="margin-bottom: 8px;"><strong>Bombacı (Bomber):</strong> Geceleri sessizce oyunculara bomba yerleştirir. İstediği bir gece tüm bombaları patlatarak aynı anda birden fazla kişiyi oyundan siler.</li>
+        <li style="margin-bottom: 8px;"><strong>Hırsız (Thief):</strong> Gece bir oyuncuyu öldürüp onun rolünü ve amacını çalar. Öldürdüğü kişi Masumsa masum, Hainse hain olarak oyuna devam eder.</li>
+        <li style="margin-bottom: 8px;"><strong>Büyücü (Magician):</strong> Sahip olduğu büyüleri doğru zamanlarda kullanarak oyuncuların hayatta kalma durumlarını kontrol eder.</li>
+        <li style="margin-bottom: 8px;"><strong>Hortlak (Ghost):</strong> Gece kimseyi öldüremez, amacı gündüz oylamasıyla asılarak oyundan atılmaktır. Eğer kendini asmayı başarırsa oyunu tek başına o kazanır, bu yüzden kasıtlı olarak şüpheli davranışlar sergiler.</li>
       </ul>
 
       <h2 style="color: #ffd32a; font-size: 22px; margin-bottom: 15px; border-bottom: 1px solid #353b48; padding-bottom: 10px;">Araç Nasıl Kullanılır?</h2>
