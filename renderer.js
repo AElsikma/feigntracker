@@ -30,7 +30,11 @@ const translations = {
       logHiddenRole: "grubunu söyledi ama net rolünü gizledi:",
       snitchHidden: "İspiyoncu Bilgiyi Sakladı", whatDidTheySay: "Hedef oyuncunun hangi grupta olduğunu belirtti mi?",
       nobodyCame: "Kimse Gelmedi", saveSelected: "Seçilenleri Kaydet", stayedHomeBtn: "Evden Çıkmadı",
-      Masum: "Masum", Şüpheli: "Şüpheli", Tarafsız: "Tarafsız"
+      Masum: "Masum", Şüpheli: "Şüpheli", Tarafsız: "Tarafsız",
+      btnNormal: "Normal", btnSaved: "Kurtarıldı", btnTriedExit: "Çıkmaya Çalıştı", btnStayed: "Evde Kaldı",
+      btnNoTrigger: "Basmadı", btnTriggered: "Bastı (Tetiklendi)", btnProvoked: "Kışkırtıldı",
+      btnShield: "Kalkan Kullandı", btnNoShield: "Kalkan Yok", selfTargetAlert: "Hata: Kendini seçemezsin!",
+      confirmClearHistory: "Tüm oyun geçmişiniz kalıcı olarak silinecektir. Emin misiniz?"
     }
   },
   en: {
@@ -61,7 +65,11 @@ const translations = {
       logHiddenRole: "shared the group but hid exact role:",
       snitchHidden: "Snitch Hid Info", whatDidTheySay: "Did they specify the group of the target?",
       nobodyCame: "Nobody", saveSelected: "Save Selected", stayedHomeBtn: "Stayed Home",
-      Masum: "Safe", Şüpheli: "Sus", Tarafsız: "Neutral"
+      Masum: "Safe", Şüpheli: "Sus", Tarafsız: "Neutral",
+      btnNormal: "Normal", btnSaved: "Saved", btnTriedExit: "Tried to Exit", btnStayed: "Stayed Home",
+      btnNoTrigger: "No Trigger", btnTriggered: "Triggered", btnProvoked: "Provoked",
+      btnShield: "Shield Used", btnNoShield: "No Shield", selfTargetAlert: "Error: Cannot select yourself!",
+      confirmClearHistory: "All past game history will be permanently deleted. Are you sure?"
     }
   }
 };
@@ -139,7 +147,6 @@ function applyTranslations() {
   const notesEl = document.getElementById('manual-notes');
   if (notesEl) notesEl.placeholder = t('notesPlaceholder');
   
-  // Düzeltme: Kart isimlerini değiştirirken rozetleri (badges) koruyan güvenli yöntem
   cards.forEach(card => {
     const rawName = card.id; 
     const enName = card.getAttribute('data-color');
@@ -153,12 +160,11 @@ function applyTranslations() {
     if (rolesContainer) card.appendChild(rolesContainer);
   });
 
-  // Rozetlerin (Badges) çevrilmesi
   document.querySelectorAll('.role-badge').forEach(badge => {
     const roleKey = badge.getAttribute('data-role');
     if (roleKey) {
       if (roleKey.includes(' (?)')) {
-        const base = roleKey.split(' ')[0]; // Masum, Şüpheli veya Tarafsız
+        const base = roleKey.split(' ')[0];
         badge.innerText = t(base, 'ui') + ' (?)';
       } else {
         badge.innerText = t(roleKey, 'roles');
@@ -222,7 +228,7 @@ function addRoleBadge(playerName, text, bgColor = 'rgba(0,0,0,0.45)', textColor 
   let container = card.querySelector('.roles-container');
   if (!container) { container = document.createElement('div'); container.className = 'roles-container'; card.appendChild(container); }
   const badge = document.createElement('div'); badge.className = 'role-badge'; 
-  badge.setAttribute('data-role', text); // Çeviri motoru için orijinal ismi saklar
+  badge.setAttribute('data-role', text); 
   
   if (text.includes(' (?)')) {
     const base = text.split(' ')[0];
@@ -257,7 +263,7 @@ cards.forEach(card => {
 
     if (pendingAction && activePlayer) {
       const selfTargetActions = ['went', 'doktor_target', 'polis_target', 'tuzakci_target', 'provokator_target', 'gozcu_target', 'izci_target', 'dedektif_target', 'ispiyoncu_target'];
-      if (selfTargetActions.includes(pendingAction) && clickedPlayer === activePlayer) { alert("Invalid Self Target / Kendini Seçemezsin"); return; }
+      if (selfTargetActions.includes(pendingAction) && clickedPlayer === activePlayer) { alert(t('selfTargetAlert', 'ui')); return; }
       
       if (pendingAction === 'gozcu_visitors' || pendingAction === 'izci_went_where') {
          if (pendingAction === 'gozcu_visitors' && clickedPlayer === activePlayer) return;
@@ -268,7 +274,7 @@ cards.forEach(card => {
             return; 
          }
          if (pendingAction === 'izci_went_where') {
-            directLog(`(İzci/Tracker) ➔ <b style="color:${getColor(clickedPlayer)}">${clickedNameDisplay}</b>`);
+            directLog(`(${t('İzci','roles')}) ➔ <b style="color:${getColor(clickedPlayer)}">${clickedNameDisplay}</b>`);
             return;
          }
       }
@@ -283,27 +289,27 @@ cards.forEach(card => {
 
       if (pendingAction === 'doktor_target') {
         showDecision(t('Doktor','roles'), "?", `
-          <button class="action-btn" onclick="directLog('➔ <b style=&quot;color:${getColor(clickedPlayer)}&quot;>${clickedNameDisplay}</b> (Normal)')">Normal</button>
-          <button class="action-btn safe-btn" onclick="directLog('➔ <b style=&quot;color:${getColor(clickedPlayer)}&quot;>${clickedNameDisplay}</b> (Saved/Kurtardı)')">Saved</button>
+          <button class="action-btn" onclick="directLog('➔ <b style=&quot;color:${getColor(clickedPlayer)}&quot;>${clickedNameDisplay}</b> (${t('btnNormal','ui')})')">${t('btnNormal','ui')}</button>
+          <button class="action-btn safe-btn" onclick="directLog('➔ <b style=&quot;color:${getColor(clickedPlayer)}&quot;>${clickedNameDisplay}</b> (${t('btnSaved','ui')})')">${t('btnSaved','ui')}</button>
           <button class="action-btn" onclick="directLog('➔ <b style=&quot;color:${getColor(clickedPlayer)}&quot;>${clickedNameDisplay}</b> (${t('trapped','ui')})')">${t('trappedBtn','ui')}</button>
         `);
       } 
       else if (pendingAction === 'polis_target') {
          showDecision(t('Polis','roles'), "?", `
-          <button class="action-btn" onclick="directLog('➔ <b style=&quot;color:${getColor(clickedPlayer)}&quot;>${clickedNameDisplay}</b> (Tried to exit)')">Tried Exit</button>
-          <button class="action-btn" onclick="directLog('➔ <b style=&quot;color:${getColor(clickedPlayer)}&quot;>${clickedNameDisplay}</b> (Stayed)')">Stayed</button>
+          <button class="action-btn" onclick="directLog('➔ <b style=&quot;color:${getColor(clickedPlayer)}&quot;>${clickedNameDisplay}</b> (${t('btnTriedExit','ui')})')">${t('btnTriedExit','ui')}</button>
+          <button class="action-btn" onclick="directLog('➔ <b style=&quot;color:${getColor(clickedPlayer)}&quot;>${clickedNameDisplay}</b> (${t('btnStayed','ui')})')">${t('btnStayed','ui')}</button>
           <button class="action-btn" onclick="directLog('➔ <b style=&quot;color:${getColor(clickedPlayer)}&quot;>${clickedNameDisplay}</b> (${t('trapped','ui')})')">${t('trappedBtn','ui')}</button>
         `);
       }
       else if (pendingAction === 'tuzakci_target') {
          showDecision(t('Tuzakçı','roles'), "?", `
-          <button class="action-btn" onclick="directLog('➔ <b style=&quot;color:${getColor(clickedPlayer)}&quot;>${clickedNameDisplay}</b> (No trigger)')">No Trigger</button>
-          <button class="action-btn sus-btn" onclick="directLog('➔ <b style=&quot;color:${getColor(clickedPlayer)}&quot;>${clickedNameDisplay}</b> (Triggered/Bastı)')">Triggered</button>
+          <button class="action-btn" onclick="directLog('➔ <b style=&quot;color:${getColor(clickedPlayer)}&quot;>${clickedNameDisplay}</b> (${t('btnNoTrigger','ui')})')">${t('btnNoTrigger','ui')}</button>
+          <button class="action-btn sus-btn" onclick="directLog('➔ <b style=&quot;color:${getColor(clickedPlayer)}&quot;>${clickedNameDisplay}</b> (${t('btnTriggered','ui')})')">${t('btnTriggered','ui')}</button>
         `);
       }
       else if (pendingAction === 'provokator_target') {
          showDecision(t('Provakatör','roles'), "?", `
-          <button class="action-btn safe-btn" onclick="directLog('➔ <b style=&quot;color:${getColor(clickedPlayer)}&quot;>${clickedNameDisplay}</b> (Provoked)')">Provoked</button>
+          <button class="action-btn safe-btn" onclick="directLog('➔ <b style=&quot;color:${getColor(clickedPlayer)}&quot;>${clickedNameDisplay}</b> (${t('btnProvoked','ui')})')">${t('btnProvoked','ui')}</button>
         `);
       }
       else if (pendingAction === 'gozcu_target') {
@@ -328,9 +334,9 @@ cards.forEach(card => {
       else if (pendingAction === 'ispiyoncu_target') {
         showDecision(clickedNameDisplay, t('chooseGroup','ui'), `
           <div style="display: flex; justify-content: center; gap: 5px; flex-wrap: wrap; max-width: 400px; margin: 0 auto;">
-            <button class="action-btn role-masum" style="flex: 1; min-width: 100px;" onclick="renderIspiyoncuRoles('Masum')">Masum/Safe</button>
-            <button class="action-btn role-hain" style="flex: 1; min-width: 100px;" onclick="renderIspiyoncuRoles('Şüpheli')">Şüpheli/Sus</button>
-            <button class="action-btn role-tarafsiz" style="flex: 1; min-width: 100px;" onclick="renderIspiyoncuRoles('Tarafsız')">Tarafsız/Neutral</button>
+            <button class="action-btn role-masum" style="flex: 1; min-width: 100px;" onclick="renderIspiyoncuRoles('Masum')">${t('Masum','ui')}</button>
+            <button class="action-btn role-hain" style="flex: 1; min-width: 100px;" onclick="renderIspiyoncuRoles('Şüpheli')">${t('Şüpheli','ui')}</button>
+            <button class="action-btn role-tarafsiz" style="flex: 1; min-width: 100px;" onclick="renderIspiyoncuRoles('Tarafsız')">${t('Tarafsız','ui')}</button>
             <button class="action-btn eylem-btn" style="flex: 1; min-width: 100px;" onclick="showIspiyoncuSoylemedi()">${t('hiddenInfo','ui')}</button>
             <button class="action-btn" style="flex: 1; min-width: 100px;" onclick="directLog('➔ <b style=&quot;color:${getColor(clickedPlayer)}&quot;>${clickedNameDisplay}</b> (${t('trapped','ui')})')">${t('trappedBtn','ui')}</button>
           </div>
@@ -359,8 +365,8 @@ window.startFlow = function(type) {
 
 window.showSurvivorDecision = function() {
   showDecision(t('Survivor','roles'), "?", `
-    <button class="action-btn safe-btn" onclick="directLog('Shield Used (Kurtuldu)')">Shield Used</button>
-    <button class="action-btn" onclick="directLog('No Shield')">No Shield</button>
+    <button class="action-btn safe-btn" onclick="directLog('${t('btnShield','ui')}')">${t('btnShield','ui')}</button>
+    <button class="action-btn" onclick="directLog('${t('btnNoShield','ui')}')">${t('btnNoShield','ui')}</button>
   `);
 }
 
@@ -372,9 +378,9 @@ window.showDedektifTeamSelection = function(step) {
 
   showDecision(`${t('Dedektif','roles')} - Step ${step}`, t('chooseGroup','ui'), `
     <div style="display: flex; gap: 5px; justify-content: center; flex-wrap: wrap;">
-      <button class="action-btn role-masum" style="flex: 1; min-width: 80px;" onclick="selectDedektifTeam('Masum')">Masum/Safe</button>
-      <button class="action-btn role-hain" style="flex: 1; min-width: 80px;" onclick="selectDedektifTeam('Şüpheli')">Şüpheli/Sus</button>
-      <button class="action-btn role-tarafsiz" style="flex: 1; min-width: 80px;" onclick="selectDedektifTeam('Tarafsız')">Tarafsız/Neutral</button>
+      <button class="action-btn role-masum" style="flex: 1; min-width: 80px;" onclick="selectDedektifTeam('Masum')">${t('Masum','ui')}</button>
+      <button class="action-btn role-hain" style="flex: 1; min-width: 80px;" onclick="selectDedektifTeam('Şüpheli')">${t('Şüpheli','ui')}</button>
+      <button class="action-btn role-tarafsiz" style="flex: 1; min-width: 80px;" onclick="selectDedektifTeam('Tarafsız')">${t('Tarafsız','ui')}</button>
       ${trapBtn}
     </div>
   `);
@@ -396,7 +402,7 @@ window.showDedektifRoleSelection = function(step) {
   let html = `<div class="role-grid">`;
   rolesToShow.forEach(r => { html += `<button class="action-btn ${colorClass}" onclick="selectDedektifRole('${r.n}')">${t(r.n,'roles')}</button>`; });
   html += `</div>`;
-  showDecision(`${t('Dedektif','roles')} - Step ${step}`, `?`, html);
+  showDecision(`${t('Dedektif','roles')} - Step ${step}`, t('chooseRole', 'ui') || "?", html);
 }
 
 window.selectDedektifRole = function(roleName) {
@@ -422,7 +428,7 @@ window.renderIspiyoncuRoles = function(team) {
   let html = `<div class="role-grid">`;
   rolesToShow.forEach(r => { html += `<button class="action-btn ${colorClass}" onclick="selectIspiyoncuRole('${r.n}', '${team}')">${t(r.n,'roles')}</button>`; });
   html += `</div>`;
-  showDecision(t('İspiyoncu','roles'), "?", html);
+  showDecision(t('İspiyoncu','roles'), t('chooseRole', 'ui') || "?", html);
 }
 
 window.selectIspiyoncuRole = function(roleName, team) {
@@ -493,7 +499,7 @@ const btnWent = document.getElementById('btn-went');
 if(btnWent) btnWent.addEventListener('click', () => { pendingAction = 'went'; selectedNameLabel.innerText = "➔ ?"; });
 
 const btnStayed = document.getElementById('btn-stayed');
-if(btnStayed) btnStayed.addEventListener('click', () => { directLog(t('stayedHome','ui')); });
+if(btnStayed) btnStayed.addEventListener('click', () => { directLog(t('btnStayed','ui')); });
 
 const btnWentOut = document.getElementById('btn-went-out');
 if(btnWentOut) btnWentOut.addEventListener('click', () => { directLog(t('wentOut','ui')); });
@@ -516,7 +522,6 @@ if (btnResetGame) {
   btnResetGame.addEventListener('click', () => {
     if(confirm(t('confirmReset', 'ui'))) {
       
-      // Geçmişe Kayıt İşlemi
       const listItems = logList.querySelectorAll('li');
       if (listItems.length > 0) {
         let currentLogs = [];
@@ -536,7 +541,6 @@ if (btnResetGame) {
         localStorage.setItem('feignTrackerHistory', JSON.stringify(history));
       }
 
-      // Temizleme İşlemi
       logList.innerHTML = ''; 
       turnCount = 1; 
       const manualNotes = document.getElementById('manual-notes');
@@ -592,7 +596,7 @@ function renderHistoryPanel() {
 const clearHistoryBtn = document.getElementById('clear-history-btn');
 if (clearHistoryBtn) {
   clearHistoryBtn.addEventListener('click', () => {
-    if(confirm("Tüm oyun geçmişiniz kalıcı olarak silinecektir. / All past game history will be permanently deleted. Are you sure?")) {
+    if(confirm(t('confirmClearHistory', 'ui'))) {
       localStorage.removeItem('feignTrackerHistory');
       renderHistoryPanel(); 
     }
