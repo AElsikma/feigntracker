@@ -17,13 +17,13 @@ function getSuffix(word, type) {
 }
 
 // ==========================================
-// 2. DİL (i18n) VE ÇEVİRİ SÖZLÜĞÜ
+// 2. DİL VE ÇEVİRİ SÖZLÜĞÜ
 // ==========================================
 const translations = {
   tr: {
     newTurn: "Yeni Tura Geç", resetGame: "Oyunu Sıfırla", safe: "✔ Güvenli", sus: "✘ Şüpheli",
     setRole: "Rol Belirt", wentTo: "Şuraya Gitti ➔", actionSpecial: "⚡ Eylem (Rol Özel)",
-    incomingActions: "📥 Gelen Eylemler", stayedHome: "Evde Kaldı", wentOut: "Dışarı Çıktı (Belirsiz)",
+    incomingActions: "📥 Gelen Eylemler", stayedHome: "Evde Kaldı", wentOut: "Dışarı Çıktı",
     cancel: "İptal", chooseRole: "Rol Seçin", back: "Geri", whoseAction: "Hangi Rolün Eylemi?",
     cancelSelection: "İptali Seç", whatHappened: "Bu Oyuncuya Ne Yapıldı?", actionHistory: "Aksiyon Geçmişi",
     searchPlaceholder: "Geçmişte ara...", freeNotes: "Serbest Notlar", notesPlaceholder: "Notlarınızı buraya yazabilirsiniz...",
@@ -48,29 +48,6 @@ const translations = {
       survHealSuccess: "Ölümden Döndü", survHealFail: "Saldırı Almadı",
       selfTargetAlert: "Hata: Kendini seçemezsin!"
     }
-  },
-  en: {
-    newTurn: "Next Turn", resetGame: "Reset Game", safe: "✔ Safe", sus: "✘ Sus",
-    setRole: "Set Role", wentTo: "Went To ➔", actionSpecial: "⚡ Action",
-    incomingActions: "📥 Incoming Actions", stayedHome: "Stayed Home", wentOut: "Went Out",
-    cancel: "Cancel", chooseRole: "Choose Role", back: "Back", whoseAction: "Action?",
-    cancelSelection: "Cancel", whatHappened: "Action Result?", actionHistory: "Action History",
-    searchPlaceholder: "Search...", freeNotes: "Notes", notesPlaceholder: "Notes here...",
-    feedbackBtn: "💬 Feedback", historyBtn: "📜 History",
-    step: "Step",
-    roles: { "Doktor": "Doctor", "Polis": "Police", "Gözcü": "Lookout", "Dedektif": "Investigator", "Tuzakçı": "Trapper", "Survivor": "Survivor" /* ... extend if needed */ },
-    ui: {
-      targetWait: "Waiting Target", targetSelect: "Select a player.", or: "OR", 
-      chooseGroup: "Choose Group", hiddenInfo: "Hidden Info", trappedBtn: "Trapped",
-      saidMasum: "Said Safe", saidSus: "Said Sus", saidNothing: "Unknown",
-      nobodyCame: "Nobody", saveSelected: "Save", stayedHomeBtn: "Stayed Home",
-      Masum: "Innocent", Şüpheli: "Suspect", Tarafsız: "Neutral",
-      btnNormal: "Nothing", btnSaved: "Saved", btnTriedExit: "Tried Exit", btnStayed: "Stayed",
-      btnNoTrigger: "No Trigger", btnTriggered: "Triggered", btnProvoked: "Provoked",
-      btnShield: "Used Shield", btnNoShield: "No Shield",
-      survHealSuccess: "Survived Hit", survHealFail: "No Hit Received",
-      selfTargetAlert: "Error: Cannot select self!"
-    }
   }
 };
 
@@ -81,7 +58,7 @@ function t(key, sub = null) {
 }
 
 // ==========================================
-// 3. LOG ÜRETİCİ (FORMAT: Renk: (Rol) Mesaj)
+// 3. LOG VE YARDIMCI FONKSİYONLAR
 // ==========================================
 function buildLog(actorName, roleName, actionText) {
   const actorColor = getColor(actorName);
@@ -90,8 +67,17 @@ function buildLog(actorName, roleName, actionText) {
   return `<span style="color:${actorColor}">${actorDisplay}</span>: ${roleDisplay}${actionText}`;
 }
 
+function getColor(id) {
+  const colors = { 'Beyaz': '#F3F3F3', 'Turuncu': '#FA8A1C', 'Mor': '#b554e6', 'Koyu Yeşil': '#40a124', 'Mavi': '#6c8dec', 'Kırmızı': '#ff4d4d', 'Sarı': '#FCE14E', 'Açık Yeşil': '#7AFF48', 'Turkuaz': '#2BD8C8', 'Açık Pembe': '#FF95B7', 'Kahverengi': '#d18b5e', 'Koyu Pembe': '#EB00E4', 'Parlak Turuncu': '#F84000' };
+  return colors[id] || '#fff';
+}
+
+function getTranslatedCardName(id) {
+  return id; 
+}
+
 // ==========================================
-// 4. ANA MANTIK VE DEĞİŞKENLER
+// 4. ANA MANTIK VE PANEL YÖNETİMİ
 // ==========================================
 const cards = document.querySelectorAll('.player-card');
 const logList = document.getElementById('log-list');
@@ -107,31 +93,63 @@ window.openPanel = function(id) {
   if(id) document.getElementById(id).style.display = "block";
 };
 
-// --- GÖZCÜ KAYIT (Geliştirilmiş) ---
+// --- ROL BUTONLARINI TETİKLEME ---
+window.startRoleAction = function(role) {
+  if (role === 'Survivor') {
+    showSurvivorDecision();
+    return;
+  }
+  pendingAction = role.toLowerCase() + '_target';
+  showDecision(t(role, 'roles'), t('ui','targetSelect'), `
+     <button class="action-btn" style="background:#555" onclick="resetSelection()">${t('cancel')}</button>
+  `);
+};
+
+// --- KARAR PANELİ ---
+function showDecision(title, content, btns) {
+  openPanel('decision-panel');
+  document.getElementById('decision-title').innerHTML = title;
+  document.getElementById('decision-content').innerHTML = content;
+  document.getElementById('decision-buttons').innerHTML = btns;
+}
+
+// --- SURVIVOR ÖZEL ---
+window.showSurvivorDecision = function() {
+  showDecision(t('Survivor','roles'), t('ui','btnShield') + "?", `
+    <button class="action-btn safe-btn" onclick="showSurvivorResult(true)">${t('ui','btnShield')}</button>
+    <button class="action-btn" onclick="completeAction('Survivor', '${t('ui','btnNoShield')}.')">${t('ui','btnNoShield')}</button>
+  `);
+};
+
+window.showSurvivorResult = function(used) {
+  showDecision(t('Survivor','roles'), "Sonuç ne oldu?", `
+    <button class="action-btn safe-btn" onclick="completeAction('Survivor', '${t('ui','btnShield')} ve ${t('ui','survHealSuccess')}.')">${t('ui','survHealSuccess')}</button>
+    <button class="action-btn" onclick="completeAction('Survivor', '${t('ui','btnShield')} ama ${t('ui','survHealFail')}.')">${t('ui','survHealFail')}</button>
+  `);
+};
+
+// --- GÖZCÜ KAYIT ---
 window.saveGozcu = function(isNobody) {
-  const actor = activePlayer;
-  const target = flowData.target;
-  const targetName = getTranslatedCardName(target);
-  const targetSpan = `<span style="color:${getColor(target)}">${targetName}${currentLang === 'tr' ? getSuffix(targetName, 'a') : "'s house"}</span>`;
+  const targetName = getTranslatedCardName(flowData.target);
+  const targetSpan = `<span style="color:${getColor(flowData.target)}">${targetName}${getSuffix(targetName, 'a')}</span>`;
 
   if (isNobody) {
-    addLog(buildLog(actor, "Gözcü", `${targetSpan} kimsenin gelmediğini söyledi.`));
+    addLog(buildLog(activePlayer, "Gözcü", `${targetSpan} kimsenin gelmediğini söyledi.`));
   } else {
     if (multiSelectColors.length === 0) { alert("Lütfen renk seçin!"); return; }
     const visitors = multiSelectColors.map(c => `<span style="color:${getColor(c)}">${getTranslatedCardName(c)}</span>`).join(", ");
-    addLog(buildLog(actor, "Gözcü", `${targetSpan} şunların geldiğini gördü: ${visitors}.`));
+    addLog(buildLog(activePlayer, "Gözcü", `${targetSpan} şunların geldiğini gördü: ${visitors}.`));
   }
   resetSelection();
 };
 
-// --- TETİKLEYİCİLER ---
+// --- KART TIKLAMA ---
 cards.forEach(card => {
   card.addEventListener('click', () => {
     const clickedId = card.id;
 
-    // Gözcü/İzci Çoklu Seçim Modu
     if (pendingAction === 'gozcu_visitors') {
-      if (clickedId === activePlayer || clickedId === flowData.target) return; // Kendini ve hedefi seçemez
+      if (clickedId === activePlayer || clickedId === flowData.target) return;
       const idx = multiSelectColors.indexOf(clickedId);
       if (idx > -1) { multiSelectColors.splice(idx, 1); card.style.border = "2px solid var(--card-border)"; }
       else { multiSelectColors.push(clickedId); card.style.border = "3px dashed #0fbcf9"; }
@@ -139,49 +157,56 @@ cards.forEach(card => {
     }
 
     if (pendingAction && activePlayer) {
-      // Hedef Seçimi
-      if (clickedId === activePlayer) { alert(t('selfTargetAlert','ui')); return; }
+      if (clickedId === activePlayer) { alert(t('ui','selfTargetAlert')); return; }
       flowData.target = clickedId;
-      const targetName = getTranslatedCardName(clickedId);
-      const targetColor = getColor(clickedId);
-      const targetSpan = `<span style="color:${targetColor}">${targetName}</span>`;
-      const targetSuffixA = targetName + (currentLang === 'tr' ? getSuffix(targetName, 'a') : "'s house");
-      const targetSpanA = `<span style="color:${targetColor}">${targetSuffixA}</span>`;
+      const tName = getTranslatedCardName(clickedId);
+      const tCol = getColor(clickedId);
+      const tSpanA = `<span style="color:${tCol}">${tName}${getSuffix(tName, 'a')}</span>`;
 
+      // Rol Bazlı Karar Butonları
       if (pendingAction === 'doktor_target') {
         showDecision(t('Doktor','roles'), "?", `
-          <button class="action-btn" onclick="completeAction('Doktor','${targetSpanA} gitti, BİR ŞEY OLMADI.')">${t('btnNormal','ui')}</button>
-          <button class="action-btn safe-btn" onclick="completeAction('Doktor','${targetSpanA} gitti ve KURTARDI.')">${t('btnSaved','ui')}</button>
-          <button class="action-btn" onclick="completeAction('Doktor','${targetSpanA} giderken TUZAĞA YAKALANDI.')">${t('trappedBtn','ui')}</button>
+          <button class="action-btn" onclick="completeAction('Doktor','${tSpanA} gitti, BİR ŞEY OLMADI.')">${t('ui','btnNormal')}</button>
+          <button class="action-btn safe-btn" onclick="completeAction('Doktor','${tSpanA} gitti ve KURTARDI.')">${t('ui','btnSaved')}</button>
+          <button class="action-btn" onclick="completeAction('Doktor','${tSpanA} giderken TUZAĞA YAKALANDI.')">${t('ui','trappedBtn')}</button>
         `);
       }
       else if (pendingAction === 'polis_target') {
         showDecision(t('Polis','roles'), "?", `
-          <button class="action-btn" onclick="completeAction('Polis','${targetSpanA} gitti, ÇIKMAYA ÇALIŞTI.')">${t('btnTriedExit','ui')}</button>
-          <button class="action-btn" onclick="completeAction('Polis','${targetSpanA} gitti, ÇIKMAYA ÇALIŞMADI.')">${t('btnStayed','ui')}</button>
-          <button class="action-btn" onclick="completeAction('Polis','${targetSpanA} giderken TUZAĞA YAKALANDI.')">${t('trappedBtn','ui')}</button>
+          <button class="action-btn" onclick="completeAction('Polis','${tSpanA} gitti, ÇIKMAYA ÇALIŞTI.')">${t('ui','btnTriedExit')}</button>
+          <button class="action-btn" onclick="completeAction('Polis','${tSpanA} gitti, ÇIKMAYA ÇALIŞMADI.')">${t('ui','btnStayed')}</button>
+          <button class="action-btn" onclick="completeAction('Polis','${tSpanA} giderken TUZAĞA YAKALANDI.')">${t('ui','trappedBtn')}</button>
         `);
       }
-      else if (pendingAction === 'tuzakci_target') {
+      else if (pendingAction === 'tuzakcı_target') {
         showDecision(t('Tuzakçı','roles'), "?", `
-          <button class="action-btn" onclick="completeAction('Tuzakçı','${targetSpanA} tuzak kurdu, BASILMADI.')">${t('btnNoTrigger','ui')}</button>
-          <button class="action-btn sus-btn" onclick="completeAction('Tuzakçı','${targetSpanA} tuzak kurdu, BASILDI.')">${t('btnTriggered','ui')}</button>
-          <button class="action-btn" onclick="completeAction('Tuzakçı','${targetSpanA} tuzak kurmaya giderken TUZAĞA YAKALANDI.')">${t('trappedBtn','ui')}</button>
+          <button class="action-btn" onclick="completeAction('Tuzakçı','${tSpanA} tuzak kurdu, BASILMADI.')">${t('ui','btnNoTrigger')}</button>
+          <button class="action-btn sus-btn" onclick="completeAction('Tuzakçı','${tSpanA} tuzak kurdu, BASILDI.')">${t('ui','btnTriggered')}</button>
+          <button class="action-btn" onclick="completeAction('Tuzakçı','${tSpanA} tuzak kurmaya giderken TUZAĞA YAKALANDI.')">${t('ui','trappedBtn')}</button>
         `);
       }
       else if (pendingAction === 'gozcu_target') {
         pendingAction = 'gozcu_visitors';
-        showDecision(targetName, t('saveSelected','ui'), `
-          <button class="action-btn safe-btn" onclick="saveGozcu(false)">${t('saveSelected','ui')}</button>
-          <button class="action-btn" onclick="saveGozcu(true)">${t('nobodyCame','ui')}</button>
-          <button class="action-btn" onclick="completeAction('Gözcü','${targetSpanA} giderken TUZAĞA YAKALANDI.')">${t('trappedBtn','ui')}</button>
+        showDecision(tName, t('ui','saveSelected'), `
+          <button class="action-btn safe-btn" onclick="saveGozcu(false)">${t('ui','saveSelected')}</button>
+          <button class="action-btn" onclick="saveGozcu(true)">${t('ui','nobodyCame')}</button>
+          <button class="action-btn" onclick="completeAction('Gözcü','${tSpanA} giderken TUZAĞA YAKALANDI.')">${t('ui','trappedBtn')}</button>
         `);
       }
-      // ... Diğer roller benzer şekilde güncellendi
+       else if (pendingAction === 'dedektif_target') {
+        showDecision(t('Dedektif','roles'), "?", `
+          <button class="action-btn safe-btn" onclick="completeAction('Dedektif','${tSpanA} baktı: MASUM.')">MASUM</button>
+          <button class="action-btn sus-btn" onclick="completeAction('Dedektif','${tSpanA} baktı: ŞÜPHELİ.')">ŞÜPHELİ</button>
+        `);
+      }
+      else if (pendingAction === 'deli_target') {
+        showDecision(t('Deli','roles'), "?", `
+          <button class="action-btn" onclick="completeAction('Deli','${tSpanA} ziyaret etti.')">Ziyaret Etti</button>
+        `);
+      }
       return;
     }
 
-    // Oyuncu Seçimi
     resetSelection();
     activePlayer = clickedId;
     card.style.border = "3px solid #fff";
@@ -191,23 +216,10 @@ cards.forEach(card => {
   });
 });
 
+// --- YARDIMCI FONKSİYONLAR ---
 window.completeAction = function(role, text) {
   addLog(buildLog(activePlayer, role, text));
   resetSelection();
-};
-
-window.showSurvivorDecision = function() {
-  showDecision(t('Survivor','roles'), t('btnShield','ui') + "?", `
-    <button class="action-btn safe-btn" onclick="showSurvivorResult(true)">${t('btnShield','ui')}</button>
-    <button class="action-btn" onclick="completeAction('Survivor', '${t('btnNoShield','ui')}.')">${t('btnNoShield','ui')}</button>
-  `);
-};
-
-window.showSurvivorResult = function(used) {
-  showDecision(t('Survivor','roles'), "Sonuç ne oldu?", `
-    <button class="action-btn safe-btn" onclick="completeAction('Survivor', '${t('btnShield','ui')} ve ${t('survHealSuccess','ui')}.')">${t('survHealSuccess','ui')}</button>
-    <button class="action-btn" onclick="completeAction('Survivor', '${t('btnShield','ui')} ama ${t('survHealFail','ui')}.')">${t('survHealFail','ui')}</button>
-  `);
 };
 
 window.resetSelection = function() {
@@ -222,23 +234,9 @@ function addLog(html) {
   logList.prepend(li);
 }
 
-function showDecision(title, content, btns) {
-  openPanel('decision-panel');
-  document.getElementById('decision-title').innerHTML = title;
-  document.getElementById('decision-content').innerHTML = content;
-  document.getElementById('decision-buttons').innerHTML = btns;
-}
-
-function getColor(id) {
-  const colors = { 'Beyaz': '#F3F3F3', 'Turuncu': '#FA8A1C', 'Mor': '#b554e6', 'Koyu Yeşil': '#40a124', 'Mavi': '#6c8dec', 'Kırmızı': '#ff4d4d', 'Sarı': '#FCE14E', 'Açık Yeşil': '#7AFF48', 'Turkuaz': '#2BD8C8', 'Açık Pembe': '#FF95B7', 'Kahverengi': '#d18b5e', 'Koyu Pembe': '#EB00E4', 'Parlak Turuncu': '#F84000' };
-  return colors[id] || '#fff';
-}
-
-function getTranslatedCardName(id) {
-  const card = document.getElementById(id);
-  return currentLang === 'en' ? card.getAttribute('data-color') : id;
-}
-
-// Başlatıcı eylemleri
-document.getElementById('btn-went').onclick = () => { pendingAction = 'went'; showDecision(t('targetWait','ui'), t('targetSelect','ui'), ""); };
+// --- ALT BUTONLAR ---
+document.getElementById('btn-went').onclick = () => { 
+  pendingAction = 'went_target'; 
+  showDecision(t('ui','targetWait'), t('ui','targetSelect'), ""); 
+};
 document.getElementById('btn-stayed').onclick = () => { completeAction(null, t('stayedHome')); };
