@@ -545,10 +545,10 @@ cards.forEach(card => {
         pendingAction = 'izci_went_where';
         const stayed  = tLog('trackerSawStayed', p);
         const trapped = tLog('trackerTrapped', p);
-        showDecision(getDisplayName(clicked), '?', `
-          <button class="action-btn eylem-btn" onclick="directLog('${esc(stayed)}')">${t('stayedHomeBtn','ui')}</button>
-          ${makeDLBtn(trapped, t('trappedBtn','ui'), 'action-btn')}
-        `);
+        showDecision(getDisplayName(clicked), '?',
+          makeDLBtn(stayed, t('stayedHomeBtn','ui'), 'action-btn eylem-btn') +
+          makeDLBtn(trapped, t('trappedBtn','ui'), 'action-btn')
+        );
       }
       else if (pendingAction === 'dedektif_target') {
         flowData.dedektif = { target: clicked, t1:null, r1:null, t2:null, r2:null };
@@ -582,6 +582,22 @@ cards.forEach(card => {
 // ==========================================
 // 9. KARAR EKRANI YARDIMCILARI
 // ==========================================
+
+// Geçici mesaj deposu — onclick içine HTML gömmek yerine key ile erişiriz
+const _pendingMsgs = {};
+let _msgCounter = 0;
+
+function storePendingMsg(msg) {
+  const key = 'pm_' + (++_msgCounter);
+  _pendingMsgs[key] = msg;
+  return key;
+}
+
+window.firePendingMsg = function(key) {
+  const msg = _pendingMsgs[key];
+  if (msg !== undefined) directLog(msg);
+};
+
 function showDecision(title, content, buttonsHTML) {
   openPanel('decision-panel');
   document.getElementById('decision-title').innerHTML = title;
@@ -589,14 +605,10 @@ function showDecision(title, content, buttonsHTML) {
   document.getElementById('decision-buttons').innerHTML = buttonsHTML;
 }
 
-// Güvenli onclick için kaçış
-function esc(str) {
-  return str.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
-}
-
-// directLog çağıran buton HTML'i üretir
+// directLog çağıran buton HTML'i üretir — mesajı key ile depolar
 function makeDLBtn(msg, label, cls, style='') {
-  return `<button class="${cls}" style="${style}" onclick="directLog('${esc(msg)}')">${label}</button>`;
+  const key = storePendingMsg(msg);
+  return `<button class="${cls}" style="${style}" onclick="firePendingMsg('${key}')">${label}</button>`;
 }
 
 // Birden fazla buton üretir
