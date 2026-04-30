@@ -650,8 +650,8 @@ if (sendFeedbackBtn) {
         },
         body: JSON.stringify({
           message: feedbackText,
-date: new Date().toLocaleString(),
-language: currentLang === 'tr' ? "Türkçe" : "English"
+          date: new Date().toLocaleString(),
+          language: currentLang === 'tr' ? "Türkçe" : "English"
         })
       });
       if (response.ok) {
