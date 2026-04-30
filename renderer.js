@@ -10,7 +10,7 @@ let turnCount = 1;
 let flowData = {}; 
 let multiSelectColors = [];
 
-// Rol veritabanı (Sizin belirlediğiniz orijinal kurallara göre)
+// Rol veritabanı
 const roleDB = {
   masum: [{n:'Doktor'}, {n:'Deli'}],
   gri: [{n:'Polis'}, {n:'Gözcü'}, {n:'Dedektif'}, {n:'Tuzakçı'}, {n:'İspiyoncu'}, {n:'Provakatör'}, {n:'İzci'}],
@@ -88,11 +88,10 @@ cards.forEach(card => {
 
       if (pendingAction === 'izci_went_where') {
         if (clickedPlayer === flowData.target) { alert("İzlenen kişi kendi evine gitmiş olamaz! (Evden çıkmadıysa 'Evden Çıkmadı' butonunu kullanın)"); return; }
-        directLog(`(İzci) <span style="color:${getColor(flowData.target)}">${flowData.target}</span>'in ➔ <span style="color:${getColor(clickedPlayer)}">${clickedPlayer}</span>'a gittiğini gördü.`);
+        directLog(`(İzci) <b style="color:${getColor(flowData.target)}">${flowData.target}</b> oyuncusunun ➔ <b style="color:${getColor(clickedPlayer)}">${clickedPlayer}</b> hedefine gittiğini gördü.`);
         return;
       }
 
-      // GÜNCELLENMİŞ ŞIK HEDEF GÖSTERİMİ
       if (pendingAction === 'went') {
         const bg = 'rgba(0,0,0,0.45)';
         addLog(
@@ -107,31 +106,32 @@ cards.forEach(card => {
 
       flowData.target = clickedPlayer;
 
+      // JAVASCRIPT ÇAKISMA HATASI DÜZELTİLDİ: İç içe tırnak ve HTML özellikleri '&quot;' formatına geçirildi.
       if (pendingAction === 'doktor_target') {
         showDecision("Doktor Sonucu", "Doktor eylemi sonucu ne oldu?", `
-          <button class="action-btn" onclick="directLog('Doktor olarak <span style=\\'color:${getColor(clickedPlayer)}\\'>${clickedPlayer}</span>\\'a gitti, BİR ŞEY OLMADI.')">Bir Şey Olmadı</button>
-          <button class="action-btn safe-btn" onclick="directLog('Doktor olarak <span style=\\'color:${getColor(clickedPlayer)}\\'>${clickedPlayer}</span>\\'a gitti ve KURTARDI.')">Kurtardı</button>
-          <button class="action-btn" onclick="directLog('Doktor olarak <span style=\\'color:${getColor(clickedPlayer)}\\'>${clickedPlayer}</span>\\'a gitti, TUZAĞA YAKALANDI.')">Tuzağa Yakalandı</button>
+          <button class="action-btn" onclick="directLog('Doktor olarak <b style=&quot;color:${getColor(clickedPlayer)}&quot;>${clickedPlayer}</b> hedefine gitti, BİR ŞEY OLMADI.')">Bir Şey Olmadı</button>
+          <button class="action-btn safe-btn" onclick="directLog('Doktor olarak <b style=&quot;color:${getColor(clickedPlayer)}&quot;>${clickedPlayer}</b> hedefine gitti ve KURTARDI.')">Kurtardı</button>
+          <button class="action-btn" onclick="directLog('Doktor olarak <b style=&quot;color:${getColor(clickedPlayer)}&quot;>${clickedPlayer}</b> hedefine gitti, TUZAĞA YAKALANDI.')">Tuzağa Yakalandı</button>
         `);
       } 
       else if (pendingAction === 'polis_target') {
         showDecision("Polis Sonucu", "Polis eylemi sonucu ne oldu?", `
-          <button class="action-btn" onclick="directLog('Polis olarak <span style=\\'color:${getColor(clickedPlayer)}\\'>${clickedPlayer}</span>\\'a gitti, ÇIKMAYA ÇALIŞTI.')">Çıkmaya Çalıştı</button>
-          <button class="action-btn" onclick="directLog('Polis olarak <span style=\\'color:${getColor(clickedPlayer)}\\'>${clickedPlayer}</span>\\'a gitti, ÇIKMAYA ÇALIŞMADI.')">Çıkmaya Çalışmadı</button>
-          <button class="action-btn" onclick="directLog('Polis olarak <span style=\\'color:${getColor(clickedPlayer)}\\'>${clickedPlayer}</span>\\'a gitti, TUZAĞA YAKALANDI.')">Tuzağa Yakalandı</button>
+          <button class="action-btn" onclick="directLog('Polis olarak <b style=&quot;color:${getColor(clickedPlayer)}&quot;>${clickedPlayer}</b> hedefine gitti, ÇIKMAYA ÇALIŞTI.')">Çıkmaya Çalıştı</button>
+          <button class="action-btn" onclick="directLog('Polis olarak <b style=&quot;color:${getColor(clickedPlayer)}&quot;>${clickedPlayer}</b> hedefine gitti, ÇIKMAYA ÇALIŞMADI.')">Çıkmaya Çalışmadı</button>
+          <button class="action-btn" onclick="directLog('Polis olarak <b style=&quot;color:${getColor(clickedPlayer)}&quot;>${clickedPlayer}</b> hedefine gitti, TUZAĞA YAKALANDI.')">Tuzağa Yakalandı</button>
         `);
       }
       else if (pendingAction === 'tuzakci_target') {
         showDecision("Tuzak Sonucu", "Kurulan tuzağa basıldı mı?", `
-          <button class="action-btn" onclick="directLog('<span style=\\'color:${getColor(clickedPlayer)}\\'>${clickedPlayer}</span>\\'a tuzak kurdu, BASILMADI.')">Basılmadı</button>
-          <button class="action-btn sus-btn" onclick="directLog('<span style=\\'color:${getColor(clickedPlayer)}\\'>${clickedPlayer}</span>\\'a tuzak kurdu, BASILDI.')">Basıldı</button>
-          <button class="action-btn" onclick="directLog('<span style=\\'color:${getColor(clickedPlayer)}\\'>${clickedPlayer}</span>\\'a tuzak kurmaya gitti, TUZAĞA YAKALANDI.')">Tuzağa Yakalandı</button>
+          <button class="action-btn" onclick="directLog('<b style=&quot;color:${getColor(clickedPlayer)}&quot;>${clickedPlayer}</b> hedefine tuzak kurdu, BASILMADI.')">Basılmadı</button>
+          <button class="action-btn sus-btn" onclick="directLog('<b style=&quot;color:${getColor(clickedPlayer)}&quot;>${clickedPlayer}</b> hedefine tuzak kurdu, BASILDI.')">Basıldı</button>
+          <button class="action-btn" onclick="directLog('<b style=&quot;color:${getColor(clickedPlayer)}&quot;>${clickedPlayer}</b> hedefine tuzak kurmaya gitti, TUZAĞA YAKALANDI.')">Tuzağa Yakalandı</button>
         `);
       }
       else if (pendingAction === 'provokator_target') {
         showDecision("Provokatör Sonucu", "Provokatör eylemi sonucu ne oldu?", `
-          <button class="action-btn safe-btn" onclick="directLog('<span style=\\'color:${getColor(clickedPlayer)}\\'>${clickedPlayer}</span>\\'ı provoke ettiğini söyledi.')">Provoke Etti</button>
-          <button class="action-btn" onclick="directLog('<span style=\\'color:${getColor(clickedPlayer)}\\'>${clickedPlayer}</span>\\'ı provoke etmeye gitti, TUZAĞA YAKALANDI.')">Tuzağa Yakalandı</button>
+          <button class="action-btn safe-btn" onclick="directLog('<b style=&quot;color:${getColor(clickedPlayer)}&quot;>${clickedPlayer}</b> oyuncusunu provoke ettiğini söyledi.')">Provoke Etti</button>
+          <button class="action-btn" onclick="directLog('<b style=&quot;color:${getColor(clickedPlayer)}&quot;>${clickedPlayer}</b> oyuncusunu provoke etmeye gitti, TUZAĞA YAKALANDI.')">Tuzağa Yakalandı</button>
         `);
       }
       else if (pendingAction === 'gozcu_target') {
@@ -139,14 +139,14 @@ cards.forEach(card => {
         showDecision(`${clickedPlayer}'a Gelenleri Seçin`, "Gelenleri tablodan tıklayarak çoklu seçin.", `
           <button class="action-btn safe-btn" onclick="saveGozcu(false)">Seçilenleri Kaydet</button>
           <button class="action-btn" onclick="saveGozcu(true)">Kimse Gelmedi</button>
-          <button class="action-btn" onclick="directLog('Gözcü olarak <span style=\\'color:${getColor(clickedPlayer)}\\'>${clickedPlayer}</span>\\'a giderken TUZAĞA YAKALANDI.')">Tuzağa Yakalandı</button>
+          <button class="action-btn" onclick="directLog('Gözcü olarak <b style=&quot;color:${getColor(clickedPlayer)}&quot;>${clickedPlayer}</b> hedefine giderken TUZAĞA YAKALANDI.')">Tuzağa Yakalandı</button>
         `);
       }
       else if (pendingAction === 'izci_target') {
         pendingAction = 'izci_went_where';
         showDecision(`${clickedPlayer} Nereye Gitmiş?`, "Gittiği rengi tablodan seçin, evde kaldığını veya tuzağa yakalandığınızı belirtin.", `
-          <button class="action-btn eylem-btn" onclick="directLog('(İzci) <span style=\\'color:${getColor(flowData.target)}\\'>${flowData.target}</span>\\'in EVDEN ÇIKMADIĞINI gördü.')">Evden Çıkmadı</button>
-          <button class="action-btn" onclick="directLog('İzci olarak <span style=\\'color:${getColor(flowData.target)}\\'>${flowData.target}</span>\\'i izlemeye gitti, TUZAĞA YAKALANDI.')">Tuzağa Yakalandı</button>
+          <button class="action-btn eylem-btn" onclick="directLog('(İzci) <b style=&quot;color:${getColor(flowData.target)}&quot;>${flowData.target}</b> oyuncusunun EVDEN ÇIKMADIĞINI gördü.')">Evden Çıkmadı</button>
+          <button class="action-btn" onclick="directLog('İzci olarak <b style=&quot;color:${getColor(flowData.target)}&quot;>${flowData.target}</b> oyuncusunu izlemeye gitti, TUZAĞA YAKALANDI.')">Tuzağa Yakalandı</button>
         `);
       }
       else if (pendingAction === 'dedektif_target') {
@@ -160,7 +160,7 @@ cards.forEach(card => {
             <button class="action-btn role-hain" style="flex: 1; min-width: 100px;" onclick="renderIspiyoncuRoles('Şüpheli')">Şüpheli (Rol Seç)</button>
             <button class="action-btn role-tarafsiz" style="flex: 1; min-width: 100px;" onclick="renderIspiyoncuRoles('Tarafsız')">Tarafsız (Rol Seç)</button>
             <button class="action-btn eylem-btn" style="flex: 1; min-width: 100px;" onclick="showIspiyoncuSoylemedi()">Bilgiyi Gizledi (Söylemedi)</button>
-            <button class="action-btn" style="flex: 1; min-width: 100px;" onclick="directLog('İspiyoncu olarak <span style=\\'color:${getColor(clickedPlayer)}\\'>${clickedPlayer}</span>\\'a gitti, TUZAĞA YAKALANDI.')">Tuzağa Yakalandı</button>
+            <button class="action-btn" style="flex: 1; min-width: 100px;" onclick="directLog('İspiyoncu olarak <b style=&quot;color:${getColor(clickedPlayer)}&quot;>${clickedPlayer}</b> hedefine gitti, TUZAĞA YAKALANDI.')">Tuzağa Yakalandı</button>
           </div>
         `);
       }
@@ -201,7 +201,7 @@ window.showSurvivorDecision = function() {
 window.showDedektifTeamSelection = function(step) {
   pendingAction = step === 1 ? 'dedektif_team_1' : 'dedektif_team_2';
   
-  let trapBtn = step === 1 ? `<button class="action-btn" style="flex: 1; min-width: 100px;" onclick="directLog('Dedektif olarak <span style=\\'color:${getColor(flowData.dedektif.target)}\\'>${flowData.dedektif.target}</span>\\'a gitti, TUZAĞA YAKALANDI.')">Tuzağa Yakalandı</button>` : '';
+  let trapBtn = step === 1 ? `<button class="action-btn" style="flex: 1; min-width: 100px;" onclick="directLog('Dedektif olarak <b style=&quot;color:${getColor(flowData.dedektif.target)}&quot;>${flowData.dedektif.target}</b> hedefine gitti, TUZAĞA YAKALANDI.')">Tuzağa Yakalandı</button>` : '';
 
   showDecision(`Dedektif: ${step}. Rolün Grubu`, `${flowData.dedektif.target} için iddia edilen ${step}. rol HANGİ GRUPTA?`, `
     <div style="display: flex; gap: 5px; justify-content: center; flex-wrap: wrap;">
@@ -267,7 +267,7 @@ window.selectDedektifRole = function(roleName) {
     const rb1 = addRoleBadge(target, r1, c1_bg, c1_txt);
     const rb2 = addRoleBadge(target, r2, c2_bg, c2_txt);
 
-    addLog(`(Dedektif) <span style="color:${getColor(target)}">${target}</span>'in <b style="color:${c1_bg}">${t1} ${r1}</b> veya <b style="color:${c2_bg}">${t2} ${r2}</b> olduğunu söyledi.`, false, () => {
+    addLog(`(Dedektif) <b style="color:${getColor(target)}">${target}</b> oyuncusunun <b style="color:${c1_bg}">${t1} ${r1}</b> veya <b style="color:${c2_bg}">${t2} ${r2}</b> olduğunu söyledi.`, false, () => {
       rb1(); 
       rb2();
     });
@@ -308,7 +308,7 @@ window.selectIspiyoncuRole = function(roleName, team) {
   
   const removeBadge = addRoleBadge(target, roleName, bg, txt);
   
-  addLog(`(İspiyoncu) <span style="color:${getColor(target)}">${target}</span>'in <b style="color:${bg}">${team} ${roleName}</b> olduğunu söyledi.`, false, () => {
+  addLog(`(İspiyoncu) <b style="color:${getColor(target)}">${target}</b> oyuncusunun <b style="color:${bg}">${team} ${roleName}</b> olduğunu söyledi.`, false, () => {
     removeBadge();
   });
   resetSelection();
@@ -329,13 +329,13 @@ window.saveIspiyoncuSoylemedi = function(group) {
   const target = flowData.target;
   
   if (group === 'Belirsiz') {
-    addLog(`(İspiyoncu) <span style="color:${getColor(target)}">${target}</span>'e gittiğini ama <b>hiçbir bilgi vermeyeceğini</b> söyledi.`);
+    addLog(`(İspiyoncu) <b style="color:${getColor(target)}">${target}</b> hedefine gittiğini ama <b>hiçbir bilgi vermeyeceğini</b> söyledi.`);
   } else {
     const bg = group === 'Masum' ? '#0be881' : (group === 'Şüpheli' ? '#ff3f34' : '#4bcffa');
     const txt = group === 'Şüpheli' ? 'white' : 'black';
     
     const removeBadge = addRoleBadge(target, `${group} (?)`, bg, txt);
-    addLog(`(İspiyoncu) <span style="color:${getColor(target)}">${target}</span>'in <b style="color:${bg}">${group}</b> olduğunu söyledi ama <b>net rolünü gizledi</b>.`, false, () => {
+    addLog(`(İspiyoncu) <b style="color:${getColor(target)}">${target}</b> oyuncusunun <b style="color:${bg}">${group}</b> olduğunu söyledi ama <b>net rolünü gizledi</b>.`, false, () => {
       removeBadge();
     });
   }
@@ -345,17 +345,17 @@ window.saveIspiyoncuSoylemedi = function(group) {
 // --- GÖZCÜ KAYIT ---
 window.saveGozcu = function(kimseGelmedi) {
   if (kimseGelmedi) {
-    directLog(`(Gözcü) <span style="color:${getColor(flowData.target)}">${flowData.target}</span>'a kimsenin gelmediğini söyledi.`);
+    directLog(`(Gözcü) <b style="color:${getColor(flowData.target)}">${flowData.target}</b> hedefine kimsenin gelmediğini söyledi.`);
   } else {
     if (multiSelectColors.length === 0) { alert("En az bir renk seçmelisiniz!"); return; }
-    const coloredVisitors = multiSelectColors.map(c => `<span style="color:${getColor(c)}">${c}</span>`).join(", ");
-    directLog(`(Gözcü) <span style="color:${getColor(flowData.target)}">${flowData.target}</span>'a şunların geldiğini gördü: ${coloredVisitors}.`);
+    const coloredVisitors = multiSelectColors.map(c => `<b style="color:${getColor(c)}">${c}</b>`).join(", ");
+    directLog(`(Gözcü) <b style="color:${getColor(flowData.target)}">${flowData.target}</b> hedefine şunların geldiğini gördü: ${coloredVisitors}.`);
   }
 };
 
 // --- ORTAK İŞLEMLER ---
 window.directLog = function(msg) {
-  addLog(`<span style="color:${getColor(activePlayer)}">${activePlayer}</span>: ${msg}`);
+  addLog(`<b style="color:${getColor(activePlayer)}">${activePlayer}</b>: ${msg}`);
   resetSelection();
 };
 
@@ -365,10 +365,10 @@ window.markPlayer = function(status) {
   const targetPlayer = activePlayer; 
   if (status === 'safe') {
     iconSpan.innerText = '✔'; iconSpan.style.color = '#0be881'; iconSpan.style.display = 'flex';
-    addLog(`<span style="color:${getColor(activePlayer)}">${activePlayer}</span> güvenli.`, false, () => { document.getElementById(targetPlayer).querySelector('.status-icon').style.display = 'none'; });
+    addLog(`<b style="color:${getColor(activePlayer)}">${activePlayer}</b> güvenli.`, false, () => { document.getElementById(targetPlayer).querySelector('.status-icon').style.display = 'none'; });
   } else if (status === 'sus') {
     iconSpan.innerText = '✘'; iconSpan.style.color = '#ff3f34'; iconSpan.style.display = 'flex';
-    addLog(`<span style="color:${getColor(activePlayer)}">${activePlayer}</span> şüpheli.`, false, () => { document.getElementById(targetPlayer).querySelector('.status-icon').style.display = 'none'; });
+    addLog(`<b style="color:${getColor(activePlayer)}">${activePlayer}</b> şüpheli.`, false, () => { document.getElementById(targetPlayer).querySelector('.status-icon').style.display = 'none'; });
   }
   resetSelection();
 };
@@ -378,13 +378,13 @@ window.setRole = function(role) {
   const c = getRoleColors(role); 
   const removeBadge = addRoleBadge(target, role, c.bg, c.text);
   
-  addLog(`<span style="color:${getColor(target)}">${target}</span> rolünü <b>${role}</b> olarak açıkladı.`, false, () => { 
+  addLog(`<b style="color:${getColor(target)}">${target}</b> rolünü <b>${role}</b> olarak açıkladı.`, false, () => { 
     removeBadge(); 
   });
   resetSelection();
 };
 
-// ORİJİNAL BUTON DİNLEYİCİLERİ (Burası silinmişti, geri eklendi)
+// ORİJİNAL BUTON DİNLEYİCİLERİ
 document.getElementById('btn-went').addEventListener('click', () => { pendingAction = 'went'; selectedNameLabel.innerText = `${activePlayer} kime gitti?`; selectedNameLabel.style.color = "white"; });
 document.getElementById('btn-stayed').addEventListener('click', () => { directLog('Evde kaldığını söyledi.'); });
 document.getElementById('btn-went-out').addEventListener('click', () => { directLog('Dışarı çıktığını (belirsiz) söyledi.'); });
