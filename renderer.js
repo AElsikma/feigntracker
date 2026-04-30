@@ -312,7 +312,8 @@ function getColor(colorName) {
 }
 
 // ==========================================
-// ARAMA VE KOPYALAMA FONKSİYONLARI (En Alt)
+// ==========================================
+// ARAMA (FİLTRELEME) FONKSİYONU
 // ==========================================
 document.getElementById('log-search').addEventListener('input', function() {
     let filter = this.value.toLocaleLowerCase('tr-TR');
