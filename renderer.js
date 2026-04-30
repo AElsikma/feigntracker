@@ -628,3 +628,46 @@ if(searchInput) {
       }
   });
 }
+// --- FORMSPREE ARKA PLAN MAİL GÖNDERME SİSTEMİ ---
+const sendFeedbackBtn = document.getElementById('send-feedback-btn');
+const feedbackTextArea = document.getElementById('feedback-text');
+if (sendFeedbackBtn) {
+  sendFeedbackBtn.addEventListener('click', async () => {
+    const feedbackText = feedbackTextArea.value.trim();
+    if (!feedbackText) {
+      alert(currentLang === 'tr' ? "Lütfen bir mesaj yazın." : "Please write a message.");
+      return;
+    }
+    sendFeedbackBtn.disabled = true;
+    const originalBtnText = sendFeedbackBtn.innerText;
+    sendFeedbackBtn.innerText = currentLang === 'tr' ? "Gönderiliyor..." : "Sending...";
+    try {
+      const response = await fetch("https://formspree.io/f/xzdobbbd", {
+        method: "POST",
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          mesaj: feedbackText,
+          tarih: new Date().toLocaleString(),
+          dil: currentLang === 'tr' ? "Türkçe" : "English"
+        })
+      });
+      if (response.ok) {
+        alert(currentLang === 'tr' ? "Mesajınız başarıyla iletildi!" : "Message sent successfully!");
+        feedbackTextArea.value = '';
+        document.getElementById('feedback-panel').style.display = 'none';
+      } else {
+        throw new Error("Sunucu hatası");
+      }
+    } catch (error) {
+      alert(currentLang === 'tr' 
+        ? "Bir hata oluştu. Lütfen internet bağlantınızı kontrol edin." 
+        : "An error occurred. Please check your internet connection.");
+    } finally {
+      sendFeedbackBtn.disabled = false;
+      sendFeedbackBtn.innerText = originalBtnText;
+    }
+  });
+}
