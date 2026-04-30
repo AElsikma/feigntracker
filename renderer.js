@@ -90,8 +90,18 @@ document.getElementById('lang-toggle').addEventListener('click', () => {
 });
 
 document.getElementById('feedback-btn').addEventListener('click', () => {
-  const panel = document.getElementById('feedback-panel');
-  panel.style.display = panel.style.display === 'flex' ? 'none' : 'flex';
+  const fPanel = document.getElementById('feedback-panel');
+  const hPanel = document.getElementById('history-panel');
+  hPanel.style.display = 'none'; // Diğerini kapat
+  fPanel.style.display = fPanel.style.display === 'flex' ? 'none' : 'flex';
+});
+
+document.getElementById('history-btn').addEventListener('click', () => {
+  const fPanel = document.getElementById('feedback-panel');
+  const hPanel = document.getElementById('history-panel');
+  fPanel.style.display = 'none'; // Diğerini kapat
+  hPanel.style.display = hPanel.style.display === 'flex' ? 'none' : 'flex';
+  if (hPanel.style.display === 'flex') renderHistoryPanel(); // Açılırken geçmişi yükle
 });
 
 function applyTranslations() {
