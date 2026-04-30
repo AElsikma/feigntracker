@@ -23,8 +23,6 @@
     /* Kart İçi Rol Etiketleri */
     .roles-container { display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 3px; margin-top: 4px; width: 100%; }
     .role-badge { background: rgba(0, 0, 0, 0.45); color: white; padding: 2px 4px; border-radius: 4px; font-size: 9px; font-weight: normal; text-shadow: none; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 90%; }
-    }
-    .player-card:active { transform: scale(0.95); }
     
     /* Feign Orijinal Renk Paleti */
     .white { background-color: #F3F3F3; color: black; border: 1px solid #ccc; }
@@ -69,15 +67,13 @@
     .delete-log { background: none; border: none; color: #ff3f34; cursor: pointer; font-weight: bold; font-size: 12px; margin-left: 10px; }
   </style>
   <title>Feign Tracker - Profesyonel Feign Oyuncu Takip Aracı</title>
-<meta name="description" content="Feign oyununda rolleri, eylemleri ve şüpheleri unutmayın. Ücretsiz, hızlı ve profesyonel Feign takip yardımcısı ile hayatta kalın.">
-<meta name="keywords" content="feign, feign tracker, feign yardımcısı, feign rolleri, feign oyun takibi">
-
-<meta property="og:title" content="Feign Tracker - Stratejinizi Güçlendirin">
-<meta property="og:description" content="Kim hangi rolü iddia etti? Kim nereye gitti? Her şeyi tek tıkla not alın.">
-<meta property="og:url" content="https://feigntracker.com">
-<meta property="og:type" content="website">
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9436273957773353"
-     crossorigin="anonymous"></script>
+  <meta name="description" content="Feign oyununda rolleri, eylemleri ve şüpheleri unutmayın. Ücretsiz, hızlı ve profesyonel Feign takip yardımcısı ile hayatta kalın.">
+  <meta name="keywords" content="feign, feign tracker, feign yardımcısı, feign rolleri, feign oyun takibi">
+  <meta property="og:title" content="Feign Tracker - Stratejinizi Güçlendirin">
+  <meta property="og:description" content="Kim hangi rolü iddia etti? Kim nereye gitti? Her şeyi tek tıkla not alın.">
+  <meta property="og:url" content="https://feigntracker.com">
+  <meta property="og:type" content="website">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9436273957773353" crossorigin="anonymous"></script>
 </head>
 <body>
 
@@ -115,14 +111,14 @@
     <button class="action-btn" onclick="openPanel('role-panel')">Rol Belirt</button>
     <button class="action-btn" id="btn-went">Şuraya Gitti ➔</button>
     <button class="action-btn eylem-btn" onclick="openPanel('eylem-panel')">⚡ Eylem (Rol Özel)</button>
-<button class="action-btn eylem-btn" style="background-color: #9b59b6; color: white;" onclick="openPanel('gelen-eylem-panel')">📥 Gelen Eylemler</button>
+    <button class="action-btn eylem-btn" style="background-color: #9b59b6; color: white;" onclick="openPanel('gelen-eylem-panel')">📥 Gelen Eylemler</button>
     <button class="action-btn" id="btn-stayed">Evde Kaldı</button>
     <button class="action-btn" id="btn-went-out">Dışarı Çıktı (Belirsiz)</button>
     <br>
     <button class="action-btn cancel-btn" onclick="resetSelection()">İptal</button>
   </div>
 
-  <!-- ROL SEÇİM PANELİ (Ana Rol Beyanı İçin) -->
+  <!-- ROL SEÇİM PANELİ -->
   <div class="panel" id="role-panel">
     <strong style="display:block; margin-bottom: 8px; font-size: 13px;">Rol Seçin</strong>
     <div class="role-grid">
@@ -173,7 +169,7 @@
     <button class="action-btn cancel-btn" style="width: 100%;" onclick="resetSelection()">İptali Seç</button>
   </div>
 
-<!-- GELEN EYLEM PANELİ -->
+  <!-- GELEN EYLEM PANELİ -->
   <div class="panel" id="gelen-eylem-panel">
     <strong style="display:block; margin-bottom: 8px; font-size: 13px;">Bu Oyuncuya Ne Yapıldı?</strong>
     <div class="role-grid">
@@ -182,12 +178,10 @@
       <button class="action-btn role-gri" onclick="directLog('POLİS geldi ve TUTTU.')">Polis Tuttu</button>
       <button class="action-btn role-hain" onclick="directLog('TUZAĞA BASTI.')">Tuzağa Bastı</button>
       <button class="action-btn role-hain" onclick="directLog('PROVOKATÖR geldi.')">Provokatör Geldi</button>
-      
     </div>
     <button class="action-btn cancel-btn" style="width: 100%; margin-top: 5px;" onclick="openPanel('action-panel')">Geri</button>
   </div>
 
-  <!-- ALT BÖLÜM: LOG VE NOTLAR -->
   <style>
     #bottom-section { display: flex; gap: 15px; margin-top: 15px; height: 400px; }
     #log-container { flex: 1; background: #000000; padding: 10px; border-radius: 6px; overflow-y: auto; margin-top: 0; height: auto; }
@@ -195,11 +189,10 @@
     #manual-notes { flex: 1; background: transparent; color: #d2dae2; border: none; resize: none; outline: none; font-family: inherit; font-size: 13px; line-height: 1.5; padding-top: 5px; }
     #manual-notes::placeholder { color: #555; }
 
-/* KARAR VE UYARI EKRANI METİN BÜYÜTME */
     #decision-title {
       font-size: 24px !important;
       font-weight: 900 !important;
-      color: #ffd32a !important; /* Daha parlak bir sarı */
+      color: #ffd32a !important; 
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
       margin-bottom: 12px !important;
       text-align: center;
@@ -217,30 +210,24 @@
     }
     
     #decision-content b {
-      color: #ffd32a; /* Metin içindeki kalın kelimeleri sarı yaparak patlatır */
+      color: #ffd32a;
       font-size: 17px;
     }
-
-/* =======================================================
-       MASAÜSTÜ EKRAN ESNEKLİĞİ (ORİJİNAL TASARIM KORUMALI)
-       ======================================================= */
        
     body {
-      max-width: 1500px; /* Uygulamanın dev ekranlarda dağılmasını önler, ama ilk halindeki gibi geniş kalmasını sağlar */
+      max-width: 1500px; 
       margin: 0 auto;    
       padding: 10px;
     }
 
-    /* Alt bölüm (Log ve Notlar) yüksekliği ekranın boyutuna göre esner ama asla içine çökmez */
     #bottom-section {
       display: flex;
       gap: 15px;
       margin-top: 15px;
-      height: 45vh; /* Ekran yüksekliğinin %45'ini kaplar */
-      min-height: 350px; /* Ekran ne kadar küçülürse küçülsün 350px'den ufak olmaz */
+      height: 45vh; 
+      min-height: 350px; 
     }
 
-    /* Log ve Notlar taşıyıcılarının düzeni */
     #log-container, #notes-container {
       flex: 1;
       display: flex;
@@ -248,77 +235,48 @@
       height: 100%;
     }
 
-    /* Log listesinin taşmasını engelleyip, kendi içinde kaydırılabilir (scroll) yapma */
     #log-list {
       flex: 1;
       overflow-y: auto;
-      height: 0; /* Flexbox kaydırma çubuğu hilesi */
+      height: 0; 
       padding-right: 5px; 
     }
 
-    /* Serbest not alanının kutuyu tam kaplaması */
     #manual-notes {
       flex: 1;
       height: 100%;
     }
-
-/* =======================================================
-       MOBİL VE TABLET UYUMU (RESPONSIVE OPTIMIZATION)
-       ======================================================= */
        
     @media (max-width: 900px) {
-      /* 1. Log ve Notlar panelini yan yana değil, alt alta diz */
       #bottom-section {
         flex-direction: column !important;
-        height: auto !important; /* Sabit yüksekliği iptal et */
+        height: auto !important; 
       }
-
-      /* 2. Log ve Not kutularına telefonda rahat çalışacak bir yükseklik ver */
       #log-container, #notes-container {
         height: 250px !important;
         width: 100% !important;
       }
-
-      /* 3. Karar ekranındaki yan yana duran butonları (Örn: Masum, Şüpheli) alt alta tam genişlikte diz */
       #decision-buttons > div {
         flex-direction: column !important;
         width: 100% !important;
       }
-      
       #decision-buttons .action-btn {
         width: 100% !important;
         margin-top: 5px !important;
       }
-
-      /* 4. Karar uyarı metinlerini telefon ekranına sığacak şekilde bir tık küçült */
-      #decision-title {
-        font-size: 20px !important;
-      }
-      #decision-content {
-        font-size: 14px !important;
-        margin-bottom: 15px !important;
-      }
-
-      /* 5. Kartların içindeki etiketlerin (Örn: Masum Doktor) telefonda taşmasını önle */
-      .player-card {
-        min-height: 45px;
-        font-size: 10px;
-        padding: 4px 0;
-      }
-      
-      .role-badge {
-        font-size: 8px; /* Telefondaki rozetleri minik ve zarif tut */
-      }
+      #decision-title { font-size: 20px !important; }
+      #decision-content { font-size: 14px !important; margin-bottom: 15px !important; }
+      .player-card { min-height: 45px; font-size: 10px; padding: 4px 0; }
+      .role-badge { font-size: 8px; }
     }
   </style>
 
   <div id="bottom-section">
     <div id="log-container">
-     <!-- Aksiyon Geçmişi Üst Kontrol Paneli -->
-    <div id="log-header-controls" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; padding-bottom: 5px; border-bottom: 1px solid #353b48;">
-      <h3 style="margin: 0; color: #ffd32a; font-size: 16px;">Aksiyon Geçmişi</h3>
-      <input type="text" id="log-search" placeholder="Geçmişte ara (Örn: Mavi)..." style="padding: 6px 10px; border-radius: 4px; border: 1px solid #353b48; background-color: #1e272e; color: #d2dae2; outline: none; width: 160px; font-size: 13px;">
-    </div>
+      <div id="log-header-controls" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; padding-bottom: 5px; border-bottom: 1px solid #353b48;">
+        <h3 style="margin: 0; color: #ffd32a; font-size: 16px;">Aksiyon Geçmişi</h3>
+        <input type="text" id="log-search" placeholder="Geçmişte ara (Örn: Mavi)..." style="padding: 6px 10px; border-radius: 4px; border: 1px solid #353b48; background-color: #1e272e; color: #d2dae2; outline: none; width: 160px; font-size: 13px;">
+      </div>
       <ul id="log-list" style="user-select: text; -webkit-user-select: text; cursor: text; list-style-type: none; padding-left: 0;"></ul>
     </div>
     
@@ -327,56 +285,56 @@
       <textarea id="manual-notes" placeholder="Şüphelerinizi, zamanlamaları veya çelişkileri buraya yazabilirsiniz..."></textarea>
     </div>
   </div>
-<!-- SEO VE İÇERİK HACMİ BÖLÜMÜ (ADSENSE İÇİN) -->
-    <h2 style="color: #ffd32a; font-size: 22px; margin-bottom: 15px; border-bottom: 1px solid #353b48; padding-bottom: 10px; text-align: center;">Kapsamlı Feign Rolleri ve Stratejik İpuçları</h2>
-      <p style="margin-bottom: 15px;">
-        Feign oyununda rollerin en büyük taktiksel derinliği, birçok yeteneğin hem Masum hem de Hain takımında yer alabilmesidir. Rollerin hangi takımda nasıl çalıştığını bilmek ve renk kodlarına hakim olmak, Feign Tracker üzerinde notlarınızı çok daha isabetli tutmanızı sağlar:
-      </p>
 
-      <h3 style="color: #0be881; font-size: 18px; margin-top: 20px; margin-bottom: 10px;">1. Sadece Masum Olan Roller (Yeşil)</h3>
-      <ul style="margin-bottom: 20px; padding-left: 20px;">
-        <li style="margin-bottom: 8px;"><strong>Doktor (Doctor):</strong> Gece seçtiği oyuncuyu korur. Sadece masumlara gelebilen en kilit koruma rolüdür. Hainlere veya tarafsızlara gelemez.</li>
-        <li style="margin-bottom: 8px;"><strong>Deli (Insane):</strong> Kendini başka bir rolde (Polis, Dedektif vb.) sanır ancak gece edindiği tüm bilgiler yanlıştır veya eylemleri geçersizdir. Uygulama üzerinden "Deli" olasılıklarını düzenli olarak işaretlemek hayati önem taşır.</li>
-      </ul>
+  <h2 style="color: #ffd32a; font-size: 22px; margin-bottom: 15px; border-bottom: 1px solid #353b48; padding-bottom: 10px; text-align: center; margin-top: 40px;">Kapsamlı Feign Rolleri ve Stratejik İpuçları</h2>
+  <p style="margin-bottom: 15px;">
+    Feign oyununda rollerin en büyük taktiksel derinliği, birçok yeteneğin hem Masum hem de Hain takımında yer alabilmesidir. Rollerin hangi takımda nasıl çalıştığını bilmek ve renk kodlarına hakim olmak, Feign Tracker üzerinde notlarınızı çok daha isabetli tutmanızı sağlar:
+  </p>
 
-      <h3 style="color: #a4b0be; font-size: 18px; margin-top: 20px; margin-bottom: 10px;">2. Ortak Roller (Hem Masum Hem Hain Olabilenler)</h3>
-      <p style="margin-bottom: 10px; font-size: 14px; color: #a4b0be;">Bu roller oyun başlangıcında Yeşil (Masum) veya Kırmızı (Hain) kart olarak gelebilir. Hain olarak geldiklerinde, kendi rollerinin özelliklerine ek olarak geceleri birini öldürme yetenekleri vardır.</p>
-      <ul style="margin-bottom: 20px; padding-left: 20px;">
-        <li style="margin-bottom: 8px;"><strong>Polis (Police):</strong> Seçtiği kişinin gece evden çıkmasını engeller. Hain Polis, köyün en güçlü masum rollerini kilitleyerek cinayetlerini işler.</li>
-        <li style="margin-bottom: 8px;"><strong>Gözcü (Lookout):</strong> Seçtiği evin ziyaretçilerini görür. Hain Gözcü, bu istihbaratı masumların önemli rollerini tespit etmek için kullanır.</li>
-        <li style="margin-bottom: 8px;"><strong>Dedektif (Investigator):</strong> Hedefin rolünü tam olarak öğrenir. Hain Dedektif, köyün en tehlikeli masumlarını bulup onları avlamayı hedefler.</li>
-        <li style="margin-bottom: 8px;"><strong>İzci (Tracker):</strong> Seçtiği kişinin gece kime gittiğini takip eder.</li>
-        <li style="margin-bottom: 8px;"><strong>Tuzakçı (Trapper):</strong> Evine geleni tuzağa düşürür, eylemini engeller ve rolünü öğrenir.</li>
-        <li style="margin-bottom: 8px;"><strong>İspiyoncu (Snitch):</strong> Gece birinin rolünü öğrenip köy ile paylaşır. Hain İspiyoncu, yalan bilgiler vererek köyü birbirine düşürebilir.</li>
-        <li style="margin-bottom: 8px;"><strong>Provokatör (Provocateur):</strong> Kışkırttığı oyuncunun eylemini iptal ettirir ve kendine çeker.</li>
-        <li style="margin-bottom: 8px;"><strong>Büyücü (Magician):</strong> Sahip olduğu büyüleri kullanarak oyuncuların eylemlerini manipüle eder.</li>
-      </ul>
+  <h3 style="color: #0be881; font-size: 18px; margin-top: 20px; margin-bottom: 10px;">1. Sadece Masum Olan Roller (Yeşil)</h3>
+  <ul style="margin-bottom: 20px; padding-left: 20px;">
+    <li style="margin-bottom: 8px;"><strong>Doktor (Doctor):</strong> Gece seçtiği oyuncuyu korur. Sadece masumlara gelebilen en kilit koruma rolüdür. Hainlere veya tarafsızlara gelemez.</li>
+    <li style="margin-bottom: 8px;"><strong>Deli (Insane):</strong> Kendini başka bir rolde (Polis, Dedektif vb.) sanır ancak gece edindiği tüm bilgiler yanlıştır veya eylemleri geçersizdir. Uygulama üzerinden "Deli" olasılıklarını düzenli olarak işaretlemek hayati önem taşır.</li>
+  </ul>
 
-      <h3 style="color: #ff5e57; font-size: 18px; margin-top: 20px; margin-bottom: 10px;">3. Sadece Hain Olan Roller (Kırmızı)</h3>
-      <ul style="margin-bottom: 20px; padding-left: 20px;">
-        <li style="margin-bottom: 8px;"><strong>Temizlikçi (Cleaner):</strong> Öldürdüğü kişinin rolünü gizler. Cesedin rolü bilinmediği için sabah oylamasındaki analizleri ciddi şekilde zorlaştırır.</li>
-        <li style="margin-bottom: 8px;"><strong>Suçlayıcı (Blamer):</strong> Kendi cinayetinin izlerini başka bir masumun üzerine yıkarak Gözcü ve İzci gibi istihbarat rollerini yanıltır.</li>
-      </ul>
+  <h3 style="color: #a4b0be; font-size: 18px; margin-top: 20px; margin-bottom: 10px;">2. Ortak Roller (Hem Masum Hem Hain Olabilenler)</h3>
+  <p style="margin-bottom: 10px; font-size: 14px; color: #a4b0be;">Bu roller oyun başlangıcında Yeşil (Masum) veya Kırmızı (Hain) kart olarak gelebilir. Hain olarak geldiklerinde, kendi rollerinin özelliklerine ek olarak geceleri birini öldürme yetenekleri vardır.</p>
+  <ul style="margin-bottom: 20px; padding-left: 20px;">
+    <li style="margin-bottom: 8px;"><strong>Polis (Police):</strong> Seçtiği kişinin gece evden çıkmasını engeller. Hain Polis, köyün en güçlü masum rollerini kilitleyerek cinayetlerini işler.</li>
+    <li style="margin-bottom: 8px;"><strong>Gözcü (Lookout):</strong> Seçtiği evin ziyaretçilerini görür. Hain Gözcü, bu istihbaratı masumların önemli rollerini tespit etmek için kullanır.</li>
+    <li style="margin-bottom: 8px;"><strong>Dedektif (Investigator):</strong> Hedefin rolünü tam olarak öğrenir. Hain Dedektif, köyün en tehlikeli masumlarını bulup onları avlamayı hedefler.</li>
+    <li style="margin-bottom: 8px;"><strong>İzci (Tracker):</strong> Seçtiği kişinin gece kime gittiğini takip eder.</li>
+    <li style="margin-bottom: 8px;"><strong>Tuzakçı (Trapper):</strong> Evine geleni tuzağa düşürür, eylemini engeller ve rolünü öğrenir.</li>
+    <li style="margin-bottom: 8px;"><strong>İspiyoncu (Snitch):</strong> Gece birinin rolünü öğrenip köy ile paylaşır. Hain İspiyoncu, yalan bilgiler vererek köyü birbirine düşürebilir.</li>
+    <li style="margin-bottom: 8px;"><strong>Provokatör (Provocateur):</strong> Kışkırttığı oyuncunun eylemini iptal ettirir ve kendine çeker.</li>
+    <li style="margin-bottom: 8px;"><strong>Büyücü (Magician):</strong> Sahip olduğu büyüleri kullanarak oyuncuların eylemlerini manipüle eder.</li>
+  </ul>
 
-      <h3 style="color: #0fbcf9; font-size: 18px; margin-top: 20px; margin-bottom: 10px;">4. Tarafsız Roller (Açık Mavi)</h3>
-      <ul style="margin-bottom: 20px; padding-left: 20px;">
-        <li style="margin-bottom: 8px;"><strong>Survivor (Hayatta Kalan):</strong> Tek amacı oyun sonuna kadar yaşamaktır. Geceleri sınırlı sayıda zırh kullanarak kendini saldırılardan korur.</li>
-        <li style="margin-bottom: 8px;"><strong>Seri Katil (Serial Killer):</strong> Herkesi öldürüp köyde tek kalmayı hedefler. Hem masumların hem de hainlerin ortak düşmanıdır.</li>
-        <li style="margin-bottom: 8px;"><strong>Bombacı (Bomber):</strong> Geceleri oyunculara fark ettirmeden bomba yerleştirir, doğru anı bulduğunda hepsini aynı anda patlatarak toplu katliam yapar.</li>
-        <li style="margin-bottom: 8px;"><strong>Hırsız (Thief):</strong> Gece bir oyuncuyu öldürüp onun takımını ve rolünü çalar. Oyuna tamamen yeni bir kimlikle devam eder.</li>
-        <li style="margin-bottom: 8px;"><strong>Hortlak (Ghost):</strong> Gündüz oylamasında kendini astırmayı hedefleyen tek roldür. Eğer kendini astırabilirse, diğer tüm takımlar kaybeder ve oyunu tek başına o kazanır.</li>
-      </ul>
+  <h3 style="color: #ff5e57; font-size: 18px; margin-top: 20px; margin-bottom: 10px;">3. Sadece Hain Olan Roller (Kırmızı)</h3>
+  <ul style="margin-bottom: 20px; padding-left: 20px;">
+    <li style="margin-bottom: 8px;"><strong>Temizlikçi (Cleaner):</strong> Öldürdüğü kişinin rolünü gizler. Cesedin rolü bilinmediği için sabah oylamasındaki analizleri ciddi şekilde zorlaştırır.</li>
+    <li style="margin-bottom: 8px;"><strong>Suçlayıcı (Blamer):</strong> Kendi cinayetinin izlerini başka bir masumun üzerine yıkarak Gözcü ve İzci gibi istihbarat rollerini yanıltır.</li>
+  </ul>
+
+  <h3 style="color: #0fbcf9; font-size: 18px; margin-top: 20px; margin-bottom: 10px;">4. Tarafsız Roller (Açık Mavi)</h3>
+  <ul style="margin-bottom: 20px; padding-left: 20px;">
+    <li style="margin-bottom: 8px;"><strong>Survivor (Hayatta Kalan):</strong> Tek amacı oyun sonuna kadar yaşamaktır. Geceleri sınırlı sayıda zırh kullanarak kendini saldırılardan korur.</li>
+    <li style="margin-bottom: 8px;"><strong>Seri Katil (Serial Killer):</strong> Herkesi öldürüp köyde tek kalmayı hedefler. Hem masumların hem de hainlerin ortak düşmanıdır.</li>
+    <li style="margin-bottom: 8px;"><strong>Bombacı (Bomber):</strong> Geceleri oyunculara fark ettirmeden bomba yerleştirir, doğru anı bulduğunda hepsini aynı anda patlatarak toplu katliam yapar.</li>
+    <li style="margin-bottom: 8px;"><strong>Hırsız (Thief):</strong> Gece bir oyuncuyu öldürüp onun takımını ve rolünü çalar. Oyuna tamamen yeni bir kimlikle devam eder.</li>
+    <li style="margin-bottom: 8px;"><strong>Hortlak (Ghost):</strong> Gündüz oylamasında kendini astırmayı hedefleyen tek roldür. Eğer kendini astırabilirse, diğer tüm takımlar kaybeder ve oyunu tek başına o kazanır.</li>
+  </ul>
+
   <script src="./renderer.js"></script>
 
-<!-- SAYFA ALTI (FOOTER) LINKLERI -->
-<footer style="text-align: center; padding: 30px; margin-top: 50px; border-top: 1px solid #353b48;">
+  <!-- SAYFA ALTI (FOOTER) LINKLERI -->
+  <footer style="text-align: center; padding: 30px; margin-top: 50px; border-top: 1px solid #353b48;">
     <a href="gizlilik.html" style="color: #0fbcf9; text-decoration: none; margin: 0 15px; font-size: 14px;">Gizlilik Politikası</a>
     <a href="hakkimizda.html" style="color: #0fbcf9; text-decoration: none; margin: 0 15px; font-size: 14px;">Hakkımızda & İletişim</a>
     <a href="telif.html" style="color: #0fbcf9; text-decoration: none; margin: 0 15px; font-size: 14px;">Telif Hakkı ve Yasal Uyarı</a>
     <p style="color: #57606f; font-size: 12px; margin-top: 10px;">&copy; 2026 feigntracker.com - Bağımsız Oyuncu Aracı</p>
-</footer>
-  <amp-auto-ads type="adsense"
-        data-ad-client="ca-pub-9436273957773353">
-</amp-auto-ads>
+  </footer>
+
+  <amp-auto-ads type="adsense" data-ad-client="ca-pub-9436273957773353"></amp-auto-ads>
 </body>
 </html>
