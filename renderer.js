@@ -18,47 +18,23 @@ const translations = {
       "Bombacı": "Bombacı", "Hırsız": "Hırsız", "Büyücü": "Büyücü", "Hortlak": "Hortlak"
     },
     ui: {
+      docSaved: "DOKTOR geldi ve KURTARDI.", docCame: "DOKTOR geldi ama kurtarmadı.", polCaught: "POLİS geldi ve TUTTU.",
+      trapHit: "TUZAĞA BASTI.", provCame: "PROVOKATÖR geldi.",
       targetWait: "Hedef Bekleniyor", targetSelect: "Lütfen yukarıdaki tablodan hedef oyuncuyu seçin.",
       confirmReset: "Tüm kayıtlar silinip GEÇMİŞ OYUNLAR'a kaydedilecek. Emin misiniz?",
       noHistory: "Henüz kaydedilmiş bir oyun geçmişi bulunmuyor.",
       or: "VEYA", chooseGroup: "Grubunu Seçin", hiddenInfo: "Bilgiyi Gizledi (Söylemedi)",
-      trappedBtn: "Tuzağa Yakalandı",
+      trappedBtn: "Tuzağa Yakalandı", trapped: "Tuzağa Yakalandı",
       saidMasum: "Masum Dedi", saidSus: "Şüpheli Dedi", saidNeutral: "Tarafsız Dedi", saidNothing: "Hiçbir Şey Söylemedi (Belirsiz)",
+      logNothing: "hedefine gittiğini ama hiçbir bilgi vermeyeceğini söyledi.",
+      logHiddenRole: "grubunu söyledi ama net rolünü gizledi:",
       snitchHidden: "İspiyoncu Bilgiyi Sakladı", whatDidTheySay: "Hedef oyuncunun hangi grupta olduğunu belirtti mi?",
       nobodyCame: "Kimse Gelmedi", saveSelected: "Seçilenleri Kaydet", stayedHomeBtn: "Evden Çıkmadı",
       Masum: "Masum", Şüpheli: "Şüpheli", Tarafsız: "Tarafsız",
-      btnNormal: "Bir Şey Olmadı", btnSaved: "Kurtardı", btnTriedExit: "Çıkmaya Çalıştı", btnStayed: "Çıkmaya Çalışmadı",
-      btnNoTrigger: "Basılmadı", btnTriggered: "Basıldı", btnProvoked: "Provoke Etti",
+      btnNormal: "Normal", btnSaved: "Kurtarıldı", btnTriedExit: "Çıkmaya Çalıştı", btnStayed: "Evde Kaldı",
+      btnNoTrigger: "Basmadı", btnTriggered: "Bastı (Tetiklendi)", btnProvoked: "Kışkırtıldı",
       btnShield: "Kalkan Kullandı", btnNoShield: "Kalkan Yok", selfTargetAlert: "Hata: Kendini seçemezsin!",
       confirmClearHistory: "Tüm oyun geçmişiniz kalıcı olarak silinecektir. Emin misiniz?"
-    },
-    logs: {
-      went: "➔ <b style=\"color:{c}\">{t}</b>'a gitti.",
-      stayedHome: "Evde kaldığını söyledi.",
-      wentOut: "Dışarı çıktığını (belirsiz) söyledi.",
-      docNormal: "Doktor olarak <b style=\"color:{c}\">{t}</b>'a gitti, BİR ŞEY OLMADI.",
-      docSaved: "Doktor olarak <b style=\"color:{c}\">{t}</b>'a gitti ve KURTARDI.",
-      docTrapped: "Doktor olarak <b style=\"color:{c}\">{t}</b>'a gitti, TUZAĞA YAKALANDI.",
-      polTriedExit: "Polis olarak <b style=\"color:{c}\">{t}</b>'a gitti, ÇIKMAYA ÇALIŞTI.",
-      polStayed: "Polis olarak <b style=\"color:{c}\">{t}</b>'a gitti, ÇIKMAYA ÇALIŞMADI.",
-      polTrapped: "Polis olarak <b style=\"color:{c}\">{t}</b>'a gitti, TUZAĞA YAKALANDI.",
-      trapNoTrigger: "<b style=\"color:{c}\">{t}</b>'a tuzak kurdu, BASILMADI.",
-      trapTriggered: "<b style=\"color:{c}\">{t}</b>'a tuzak kurdu, BASILDI.",
-      trapTrapped: "<b style=\"color:{c}\">{t}</b>'a tuzak kurmaya gitti, TUZAĞA YAKALANDI.",
-      provoked: "<b style=\"color:{c}\">{t}</b>'ı provoke ettiğini söyledi.",
-      provTrapped: "<b style=\"color:{c}\">{t}</b>'ı provoke etmeye gitti, TUZAĞA YAKALANDI.",
-      gozcuTrapped: "Gözcü olarak <b style=\"color:{c}\">{t}</b>'a giderken TUZAĞA YAKALANDI.",
-      izciStayed: "(İzci) <b style=\"color:{c}\">{t}</b>'in EVDEN ÇIKMADIĞINI gördü.",
-      izciTrapped: "İzci olarak <b style=\"color:{c}\">{t}</b>'i izlemeye gitti, TUZAĞA YAKALANDI.",
-      dedTrapped: "Dedektif olarak <b style=\"color:{c}\">{t}</b>'a gitti, TUZAĞA YAKALANDI.",
-      ispTrapped: "İspiyoncu olarak <b style=\"color:{c}\">{t}</b>'a gitti, TUZAĞA YAKALANDI.",
-      survShield: "Kalkan Kullandı ve KURTULDU.",
-      survNoShield: "Kalkan kullanmadı.",
-      incDocSaved: "DOKTOR geldi ve KURTARDI.",
-      incDocCame: "DOKTOR geldi ama kurtarmadı.",
-      incPolCaught: "POLİS geldi ve TUTTU.",
-      incTrapHit: "TUZAĞA BASTI.",
-      incProvCame: "PROVOKATÖR geldi."
     }
   },
   en: {
@@ -77,47 +53,23 @@ const translations = {
       "Bombacı": "Bomber", "Hırsız": "Thief", "Büyücü": "Magician", "Hortlak": "Ghost"
     },
     ui: {
+      docSaved: "DOCTOR came and SAVED.", docCame: "DOCTOR came (Did not save).", polCaught: "POLICE came and CAUGHT.",
+      trapHit: "STEPPED on TRAP.", provCame: "PROVOCATEUR came.",
       targetWait: "Waiting for Target", targetSelect: "Please select target player from the grid above.",
       confirmReset: "Current logs will be saved to PAST GAMES and cleared. Are you sure?",
       noHistory: "No saved game history found yet.",
       or: "OR", chooseGroup: "Choose Group", hiddenInfo: "Hid Info (Didn't Say)",
-      trappedBtn: "Trapped",
+      trappedBtn: "Trapped", trapped: "Trapped",
       saidMasum: "Said Safe", saidSus: "Said Sus", saidNeutral: "Said Neutral", saidNothing: "Said Nothing (Unknown)",
+      logNothing: "went to target but refused to share info.",
+      logHiddenRole: "shared the group but hid exact role:",
       snitchHidden: "Snitch Hid Info", whatDidTheySay: "Did they specify the group of the target?",
       nobodyCame: "Nobody", saveSelected: "Save Selected", stayedHomeBtn: "Stayed Home",
       Masum: "Safe", Şüpheli: "Sus", Tarafsız: "Neutral",
-      btnNormal: "Nothing", btnSaved: "Saved", btnTriedExit: "Tried to Exit", btnStayed: "Stayed Home",
+      btnNormal: "Normal", btnSaved: "Saved", btnTriedExit: "Tried to Exit", btnStayed: "Stayed Home",
       btnNoTrigger: "No Trigger", btnTriggered: "Triggered", btnProvoked: "Provoked",
       btnShield: "Shield Used", btnNoShield: "No Shield", selfTargetAlert: "Error: Cannot select yourself!",
       confirmClearHistory: "All past game history will be permanently deleted. Are you sure?"
-    },
-    logs: {
-      went: "➔ went to <b style=\"color:{c}\">{t}</b>.",
-      stayedHome: "Said they stayed home.",
-      wentOut: "Said they went out (Unknown).",
-      docNormal: "Went to <b style=\"color:{c}\">{t}</b> as Doctor, NOTHING HAPPENED.",
-      docSaved: "Went to <b style=\"color:{c}\">{t}</b> as Doctor, and SAVED.",
-      docTrapped: "Went to <b style=\"color:{c}\">{t}</b> as Doctor, TRAPPED.",
-      polTriedExit: "Went to <b style=\"color:{c}\">{t}</b> as Police, TRIED TO EXIT.",
-      polStayed: "Went to <b style=\"color:{c}\">{t}</b> as Police, DID NOT EXIT.",
-      polTrapped: "Went to <b style=\"color:{c}\">{t}</b> as Police, TRAPPED.",
-      trapNoTrigger: "Set trap for <b style=\"color:{c}\">{t}</b>, NO TRIGGER.",
-      trapTriggered: "Set trap for <b style=\"color:{c}\">{t}</b>, TRIGGERED.",
-      trapTrapped: "Went to set trap for <b style=\"color:{c}\">{t}</b>, TRAPPED.",
-      provoked: "Said they provoked <b style=\"color:{c}\">{t}</b>.",
-      provTrapped: "Went to provoke <b style=\"color:{c}\">{t}</b>, TRAPPED.",
-      gozcuTrapped: "Went to <b style=\"color:{c}\">{t}</b> as Lookout, TRAPPED.",
-      izciStayed: "(Tracker) Saw <b style=\"color:{c}\">{t}</b> STAY HOME.",
-      izciTrapped: "Went to track <b style=\"color:{c}\">{t}</b> as Tracker, TRAPPED.",
-      dedTrapped: "Went to <b style=\"color:{c}\">{t}</b> as Investigator, TRAPPED.",
-      ispTrapped: "Went to <b style=\"color:{c}\">{t}</b> as Snitch, TRAPPED.",
-      survShield: "Used Shield and SURVIVED.",
-      survNoShield: "Did not use Shield.",
-      incDocSaved: "DOCTOR came and SAVED.",
-      incDocCame: "DOCTOR came (Did not save).",
-      incPolCaught: "POLICE came and CAUGHT.",
-      incTrapHit: "STEPPED on TRAP.",
-      incProvCame: "PROVOCATEUR came."
     }
   }
 };
@@ -253,11 +205,11 @@ function renderDynamicPanels() {
   const incomingGrid = document.getElementById('incoming-action-container');
   if (incomingGrid) {
     incomingGrid.innerHTML = `
-      <button class="action-btn role-masum" onclick="logAction('incDocSaved')">${t('Doktor','roles')} (+)</button>
-      <button class="action-btn role-masum" onclick="logAction('incDocCame')">${t('Doktor','roles')} (-)</button>
-      <button class="action-btn role-gri" onclick="logAction('incPolCaught')">${t('Polis','roles')} (+)</button>
-      <button class="action-btn role-hain" onclick="logAction('incTrapHit')">${t('Tuzakçı','roles')} (+)</button>
-      <button class="action-btn role-hain" onclick="logAction('incProvCame')">${t('Provakatör','roles')} (+)</button>
+      <button class="action-btn role-masum" onclick="directLog('${t('docSaved','ui')}')">${t('Doktor','roles')} (+)</button>
+      <button class="action-btn role-masum" onclick="directLog('${t('docCame','ui')}')">${t('Doktor','roles')} (-)</button>
+      <button class="action-btn role-gri" onclick="directLog('${t('polCaught','ui')}')">${t('Polis','roles')} (+)</button>
+      <button class="action-btn role-hain" onclick="directLog('${t('trapHit','ui')}')">${t('Tuzakçı','roles')} (+)</button>
+      <button class="action-btn role-hain" onclick="directLog('${t('provCame','ui')}')">${t('Provakatör','roles')} (+)</button>
     `;
   }
 }
@@ -322,18 +274,14 @@ cards.forEach(card => {
             return; 
          }
          if (pendingAction === 'izci_went_where') {
-            const target1Name = getTranslatedCardName(flowData.target);
-            const target1Color = getColor(flowData.target);
-            let msgTR = `(İzci) <b style="color:${target1Color}">${target1Name}</b>'in <b style="color:${getColor(clickedPlayer)}">${clickedNameDisplay}</b>'a gittiğini gördü.`;
-            let msgEN = `(Tracker) Saw <b style="color:${target1Color}">${target1Name}</b> go to <b style="color:${getColor(clickedPlayer)}">${clickedNameDisplay}</b>.`;
-            directLog(currentLang === 'tr' ? msgTR : msgEN);
+            directLog(`(${t('İzci','roles')}) ➔ <b style="color:${getColor(clickedPlayer)}">${clickedNameDisplay}</b>`);
             return;
          }
       }
 
       if (pendingAction === 'went') {
-        const msg = t('went', 'logs').replace('{t}', clickedNameDisplay).replace('{c}', getColor(clickedPlayer));
-        addLog(`<b style="color:${getColor(activePlayer)}">${activeNameDisplay}</b> ${msg}`);
+        const bg = 'rgba(0,0,0,0.45)';
+        addLog(`<b style="color:${getColor(activePlayer)}; background:${bg}; padding:2px 5px; border-radius:4px;">${activeNameDisplay}</b> ➔ <b style="color:${getColor(clickedPlayer)}; background:${bg}; padding:2px 5px; border-radius:4px;">${clickedNameDisplay}</b>`);
         resetSelection(); return;
       }
 
@@ -341,29 +289,27 @@ cards.forEach(card => {
 
       if (pendingAction === 'doktor_target') {
         showDecision(t('Doktor','roles'), "?", `
-          <button class="action-btn" onclick="logAction('docNormal', '${clickedPlayer}')">${t('btnNormal','ui')}</button>
-          <button class="action-btn safe-btn" onclick="logAction('docSaved', '${clickedPlayer}')">${t('btnSaved','ui')}</button>
-          <button class="action-btn" onclick="logAction('docTrapped', '${clickedPlayer}')">${t('trappedBtn','ui')}</button>
+          <button class="action-btn" onclick="directLog('➔ <b style=&quot;color:${getColor(clickedPlayer)}&quot;>${clickedNameDisplay}</b> (${t('btnNormal','ui')})')">${t('btnNormal','ui')}</button>
+          <button class="action-btn safe-btn" onclick="directLog('➔ <b style=&quot;color:${getColor(clickedPlayer)}&quot;>${clickedNameDisplay}</b> (${t('btnSaved','ui')})')">${t('btnSaved','ui')}</button>
+          <button class="action-btn" onclick="directLog('➔ <b style=&quot;color:${getColor(clickedPlayer)}&quot;>${clickedNameDisplay}</b> (${t('trapped','ui')})')">${t('trappedBtn','ui')}</button>
         `);
       } 
       else if (pendingAction === 'polis_target') {
          showDecision(t('Polis','roles'), "?", `
-          <button class="action-btn" onclick="logAction('polTriedExit', '${clickedPlayer}')">${t('btnTriedExit','ui')}</button>
-          <button class="action-btn" onclick="logAction('polStayed', '${clickedPlayer}')">${t('btnStayed','ui')}</button>
-          <button class="action-btn" onclick="logAction('polTrapped', '${clickedPlayer}')">${t('trappedBtn','ui')}</button>
+          <button class="action-btn" onclick="directLog('➔ <b style=&quot;color:${getColor(clickedPlayer)}&quot;>${clickedNameDisplay}</b> (${t('btnTriedExit','ui')})')">${t('btnTriedExit','ui')}</button>
+          <button class="action-btn" onclick="directLog('➔ <b style=&quot;color:${getColor(clickedPlayer)}&quot;>${clickedNameDisplay}</b> (${t('btnStayed','ui')})')">${t('btnStayed','ui')}</button>
+          <button class="action-btn" onclick="directLog('➔ <b style=&quot;color:${getColor(clickedPlayer)}&quot;>${clickedNameDisplay}</b> (${t('trapped','ui')})')">${t('trappedBtn','ui')}</button>
         `);
       }
       else if (pendingAction === 'tuzakci_target') {
          showDecision(t('Tuzakçı','roles'), "?", `
-          <button class="action-btn" onclick="logAction('trapNoTrigger', '${clickedPlayer}')">${t('btnNoTrigger','ui')}</button>
-          <button class="action-btn sus-btn" onclick="logAction('trapTriggered', '${clickedPlayer}')">${t('btnTriggered','ui')}</button>
-          <button class="action-btn" onclick="logAction('trapTrapped', '${clickedPlayer}')">${t('trappedBtn','ui')}</button>
+          <button class="action-btn" onclick="directLog('➔ <b style=&quot;color:${getColor(clickedPlayer)}&quot;>${clickedNameDisplay}</b> (${t('btnNoTrigger','ui')})')">${t('btnNoTrigger','ui')}</button>
+          <button class="action-btn sus-btn" onclick="directLog('➔ <b style=&quot;color:${getColor(clickedPlayer)}&quot;>${clickedNameDisplay}</b> (${t('btnTriggered','ui')})')">${t('btnTriggered','ui')}</button>
         `);
       }
       else if (pendingAction === 'provokator_target') {
          showDecision(t('Provakatör','roles'), "?", `
-          <button class="action-btn safe-btn" onclick="logAction('provoked', '${clickedPlayer}')">${t('btnProvoked','ui')}</button>
-          <button class="action-btn" onclick="logAction('provTrapped', '${clickedPlayer}')">${t('trappedBtn','ui')}</button>
+          <button class="action-btn safe-btn" onclick="directLog('➔ <b style=&quot;color:${getColor(clickedPlayer)}&quot;>${clickedNameDisplay}</b> (${t('btnProvoked','ui')})')">${t('btnProvoked','ui')}</button>
         `);
       }
       else if (pendingAction === 'gozcu_target') {
@@ -371,14 +317,14 @@ cards.forEach(card => {
         showDecision(clickedNameDisplay, t('saveSelected','ui'), `
           <button class="action-btn safe-btn" onclick="saveGozcu(false)">${t('saveSelected','ui')}</button>
           <button class="action-btn" onclick="saveGozcu(true)">${t('nobodyCame','ui')}</button>
-          <button class="action-btn" onclick="logAction('gozcuTrapped', '${clickedPlayer}')">${t('trappedBtn','ui')}</button>
+          <button class="action-btn" onclick="directLog('➔ <b style=&quot;color:${getColor(clickedPlayer)}&quot;>${clickedNameDisplay}</b> (${t('trapped','ui')})')">${t('trappedBtn','ui')}</button>
         `);
       }
       else if (pendingAction === 'izci_target') {
         pendingAction = 'izci_went_where';
         showDecision(clickedNameDisplay, "?", `
-          <button class="action-btn eylem-btn" onclick="logAction('izciStayed', '${flowData.target}')">${t('stayedHomeBtn','ui')}</button>
-          <button class="action-btn" onclick="logAction('izciTrapped', '${clickedPlayer}')">${t('trappedBtn','ui')}</button>
+          <button class="action-btn eylem-btn" onclick="directLog('➔ <b style=&quot;color:${getColor(flowData.target)}&quot;>${getTranslatedCardName(flowData.target)}</b> (${t('stayedHomeBtn','ui')})')">${t('stayedHomeBtn','ui')}</button>
+          <button class="action-btn" onclick="directLog('➔ <b style=&quot;color:${getColor(clickedPlayer)}&quot;>${clickedNameDisplay}</b> (${t('trapped','ui')})')">${t('trappedBtn','ui')}</button>
         `);
       }
       else if (pendingAction === 'dedektif_target') {
@@ -392,7 +338,7 @@ cards.forEach(card => {
             <button class="action-btn role-hain" style="flex: 1; min-width: 100px;" onclick="renderIspiyoncuRoles('Şüpheli')">${t('Şüpheli','ui')}</button>
             <button class="action-btn role-tarafsiz" style="flex: 1; min-width: 100px;" onclick="renderIspiyoncuRoles('Tarafsız')">${t('Tarafsız','ui')}</button>
             <button class="action-btn eylem-btn" style="flex: 1; min-width: 100px;" onclick="showIspiyoncuSoylemedi()">${t('hiddenInfo','ui')}</button>
-            <button class="action-btn" style="flex: 1; min-width: 100px;" onclick="logAction('ispTrapped', '${clickedPlayer}')">${t('trappedBtn','ui')}</button>
+            <button class="action-btn" style="flex: 1; min-width: 100px;" onclick="directLog('➔ <b style=&quot;color:${getColor(clickedPlayer)}&quot;>${clickedNameDisplay}</b> (${t('trapped','ui')})')">${t('trappedBtn','ui')}</button>
           </div>
         `);
       }
@@ -419,8 +365,8 @@ window.startFlow = function(type) {
 
 window.showSurvivorDecision = function() {
   showDecision(t('Survivor','roles'), "?", `
-    <button class="action-btn safe-btn" onclick="logAction('survShield')">${t('btnShield','ui')}</button>
-    <button class="action-btn" onclick="logAction('survNoShield')">${t('btnNoShield','ui')}</button>
+    <button class="action-btn safe-btn" onclick="directLog('${t('btnShield','ui')}')">${t('btnShield','ui')}</button>
+    <button class="action-btn" onclick="directLog('${t('btnNoShield','ui')}')">${t('btnNoShield','ui')}</button>
   `);
 }
 
@@ -428,7 +374,7 @@ window.showSurvivorDecision = function() {
 window.showDedektifTeamSelection = function(step) {
   pendingAction = step === 1 ? 'dedektif_team_1' : 'dedektif_team_2';
   
-  let trapBtn = step === 1 ? `<button class="action-btn" style="flex: 1; min-width: 100px;" onclick="logAction('dedTrapped', '${flowData.dedektif.target}')">${t('trappedBtn','ui')}</button>` : '';
+  let trapBtn = step === 1 ? `<button class="action-btn" style="flex: 1; min-width: 100px;" onclick="directLog('➔ <b style=&quot;color:${getColor(flowData.dedektif.target)}&quot;>${getTranslatedCardName(flowData.dedektif.target)}</b> (${t('trapped','ui')})')">${t('trappedBtn','ui')}</button>` : '';
 
   showDecision(`${t('Dedektif','roles')} - Step ${step}`, t('chooseGroup','ui'), `
     <div style="display: flex; gap: 5px; justify-content: center; flex-wrap: wrap;">
@@ -467,13 +413,7 @@ window.selectDedektifRole = function(roleName) {
     const c2_bg = t2 === 'Masum' ? '#0be881' : (t2 === 'Şüpheli' ? '#ff3f34' : '#4bcffa'); const c2_txt = t2 === 'Şüpheli' ? 'white' : 'black';
     const rb1 = addRoleBadge(target, r1, c1_bg, c1_txt); const rb2 = addRoleBadge(target, r2, c2_bg, c2_txt);
     
-    const tName = getTranslatedCardName(target);
-    const tColor = getColor(target);
-
-    let msgTR = `(Dedektif) <b style="color:${tColor}">${tName}</b>'in <b style="color:${c1_bg}">${t(t1,'ui')} ${t(r1,'roles')}</b> veya <b style="color:${c2_bg}">${t(t2,'ui')} ${t(r2,'roles')}</b> olduğunu söyledi.`;
-    let msgEN = `(Investigator) Said <b style="color:${tColor}">${tName}</b> is <b style="color:${c1_bg}">${t(t1,'ui')} ${t(r1,'roles')}</b> or <b style="color:${c2_bg}">${t(t2,'ui')} ${t(r2,'roles')}</b>.`;
-
-    addLog(`<b style="color:${getColor(activePlayer)}">${getTranslatedCardName(activePlayer)}</b>: ${currentLang === 'tr' ? msgTR : msgEN}`, false, () => { rb1(); rb2(); });
+    addLog(`(${t('Dedektif','roles')}) <b style="color:${getColor(target)}">${getTranslatedCardName(target)}</b> ➔ <b style="color:${c1_bg}">${t(t1,'ui')} ${t(r1,'roles')}</b> ${t('or','ui')} <b style="color:${c2_bg}">${t(t2,'ui')} ${t(r2,'roles')}</b>`, false, () => { rb1(); rb2(); });
     resetSelection();
   }
 }
@@ -495,14 +435,7 @@ window.selectIspiyoncuRole = function(roleName, team) {
   const target = flowData.target;
   const bg = team === 'Masum' ? '#0be881' : (team === 'Şüpheli' ? '#ff3f34' : '#4bcffa'); const txt = team === 'Şüpheli' ? 'white' : 'black';
   const removeBadge = addRoleBadge(target, roleName, bg, txt);
-
-  const tName = getTranslatedCardName(target);
-  const tColor = getColor(target);
-
-  let msgTR = `(İspiyoncu) <b style="color:${tColor}">${tName}</b>'in <b style="color:${bg}">${t(team,'ui')} ${t(roleName,'roles')}</b> olduğunu söyledi.`;
-  let msgEN = `(Snitch) Said <b style="color:${tColor}">${tName}</b> is <b style="color:${bg}">${t(team,'ui')} ${t(roleName,'roles')}</b>.`;
-
-  addLog(`<b style="color:${getColor(activePlayer)}">${getTranslatedCardName(activePlayer)}</b>: ${currentLang === 'tr' ? msgTR : msgEN}`, false, () => { removeBadge(); });
+  addLog(`(${t('İspiyoncu','roles')}) <b style="color:${getColor(target)}">${getTranslatedCardName(target)}</b> ➔ <b style="color:${bg}">${t(team,'ui')} ${t(roleName,'roles')}</b>`, false, () => { removeBadge(); });
   resetSelection();
 }
 
@@ -519,58 +452,30 @@ window.showIspiyoncuSoylemedi = function() {
 
 window.saveIspiyoncuSoylemedi = function(group) {
   const target = flowData.target;
-  const tName = getTranslatedCardName(target);
-  const tColor = getColor(target);
-
   if (group === 'Belirsiz') {
-    let msgTR = `(İspiyoncu) <b style="color:${tColor}">${tName}</b>'e gittiğini ama hiçbir bilgi vermeyeceğini söyledi.`;
-    let msgEN = `(Snitch) Said went to <b style="color:${tColor}">${tName}</b> but gave no info.`;
-    directLog(currentLang === 'tr' ? msgTR : msgEN);
+    addLog(`<b style="color:${getColor(activePlayer)}">${getTranslatedCardName(activePlayer)}</b>: ➔ <b style="color:${getColor(target)}">${getTranslatedCardName(target)}</b> (${t('logNothing', 'ui')})`);
   } else {
     const bg = group === 'Masum' ? '#0be881' : (group === 'Şüpheli' ? '#ff3f34' : '#4bcffa');
     const txt = group === 'Şüpheli' ? 'white' : 'black';
     const removeBadge = addRoleBadge(target, `${group} (?)`, bg, txt);
-    
-    let msgTR = `(İspiyoncu) <b style="color:${tColor}">${tName}</b>'in <b style="color:${bg}">${t(group, 'ui')}</b> olduğunu söyledi ama net rolünü gizledi.`;
-    let msgEN = `(Snitch) Said <b style="color:${tColor}">${tName}</b> is <b style="color:${bg}">${t(group, 'ui')}</b> but hid exact role.`;
-
-    addLog(`<b style="color:${getColor(activePlayer)}">${getTranslatedCardName(activePlayer)}</b>: ${currentLang === 'tr' ? msgTR : msgEN}`, false, () => removeBadge());
+    addLog(`<b style="color:${getColor(activePlayer)}">${getTranslatedCardName(activePlayer)}</b>: ➔ <b style="color:${getColor(target)}">${getTranslatedCardName(target)}</b> (${t('logHiddenRole', 'ui')} <b style="color:${bg}">${t(group, 'ui')}</b>)`, false, () => removeBadge());
   }
   resetSelection();
 }
 
 // --- GÖZCÜ KAYIT ---
 window.saveGozcu = function(kimseGelmedi) {
-  const tName = getTranslatedCardName(flowData.target);
-  const tColor = getColor(flowData.target);
   if (kimseGelmedi) { 
-    let msgTR = `(Gözcü) <b style="color:${tColor}">${tName}</b>'a kimsenin gelmediğini söyledi.`;
-    let msgEN = `(Lookout) Said nobody visited <b style="color:${tColor}">${tName}</b>.`;
-    directLog(currentLang === 'tr' ? msgTR : msgEN);
+    directLog(`➔ <b style="color:${getColor(flowData.target)}">${getTranslatedCardName(flowData.target)}</b> (${t('nobodyCame','ui')})`); 
   } else {
     if (multiSelectColors.length === 0) return;
     const coloredVisitors = multiSelectColors.map(c => `<b style="color:${getColor(c)}">${getTranslatedCardName(c)}</b>`).join(", ");
-    let msgTR = `(Gözcü) <b style="color:${tColor}">${tName}</b>'a şunların geldiğini gördü: ${coloredVisitors}.`;
-    let msgEN = `(Lookout) Saw these visit <b style="color:${tColor}">${tName}</b>: ${coloredVisitors}.`;
-    directLog(currentLang === 'tr' ? msgTR : msgEN);
+    directLog(`➔ <b style="color:${getColor(flowData.target)}">${getTranslatedCardName(flowData.target)}</b> (Visitors: ${coloredVisitors})`);
   }
 };
 
 // --- ORTAK İŞLEMLER ---
-window.directLog = function(msg) { 
-  addLog(`<b style="color:${getColor(activePlayer)}">${getTranslatedCardName(activePlayer)}</b>: ${msg}`); 
-  resetSelection(); 
-};
-
-window.logAction = function(key, targetPlayer = null) {
-  let msg = t(key, 'logs');
-  if (targetPlayer) {
-      const targetName = getTranslatedCardName(targetPlayer);
-      const targetColor = getColor(targetPlayer);
-      msg = msg.replace('{t}', targetName).replace('{c}', targetColor);
-  }
-  directLog(msg);
-};
+window.directLog = function(msg) { addLog(`<b style="color:${getColor(activePlayer)}">${getTranslatedCardName(activePlayer)}</b>: ${msg}`); resetSelection(); };
 
 window.markPlayer = function(status) {
   const card = document.getElementById(activePlayer); const iconSpan = card.querySelector('.status-icon'); const targetPlayer = activePlayer; 
@@ -594,10 +499,10 @@ const btnWent = document.getElementById('btn-went');
 if(btnWent) btnWent.addEventListener('click', () => { pendingAction = 'went'; selectedNameLabel.innerText = "➔ ?"; });
 
 const btnStayed = document.getElementById('btn-stayed');
-if(btnStayed) btnStayed.addEventListener('click', () => { logAction('stayedHome'); });
+if(btnStayed) btnStayed.addEventListener('click', () => { directLog(t('btnStayed','ui')); });
 
 const btnWentOut = document.getElementById('btn-went-out');
-if(btnWentOut) btnWentOut.addEventListener('click', () => { logAction('wentOut'); });
+if(btnWentOut) btnWentOut.addEventListener('click', () => { directLog(t('wentOut','ui')); });
 
 window.resetSelection = function() {
   activePlayer = null; pendingAction = null; flowData = {}; multiSelectColors = [];
