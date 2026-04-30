@@ -10,6 +10,7 @@ const translations = {
     cancelSelection: "İptali Seç", whatHappened: "Bu Oyuncuya Ne Yapıldı?", actionHistory: "Aksiyon Geçmişi",
     searchPlaceholder: "Geçmişte ara...", freeNotes: "Serbest Notlar", notesPlaceholder: "Şüphelerinizi, zamanlamaları veya çelişkileri buraya yazabilirsiniz...",
     feedbackTitle: "Bize Ulaşın", send: "Gönder", feedbackBtn: "💬 Geri Bildirim",
+    historyBtn: "📜 Oyun Geçmişi", pastGames: "Geçmiş Oyunlar", clearHistory: "Tümünü Sil",
     roles: {
       "Doktor": "Doktor", "Deli": "Deli", "Polis": "Polis", "Gözcü": "Gözcü", "Dedektif": "Dedektif",
       "Tuzakçı": "Tuzakçı", "İspiyoncu": "İspiyoncu", "Provakatör": "Provakatör", "İzci": "İzci",
@@ -19,7 +20,9 @@ const translations = {
     ui: {
       docSaved: "DOKTOR geldi ve KURTARDI.", docCame: "DOKTOR geldi ama kurtarmadı.", polCaught: "POLİS geldi ve TUTTU.",
       trapHit: "TUZAĞA BASTI.", provCame: "PROVOKATÖR geldi.",
-      targetWait: "Hedef Bekleniyor", targetSelect: "Lütfen yukarıdaki tablodan hedef oyuncuyu seçin."
+      targetWait: "Hedef Bekleniyor", targetSelect: "Lütfen yukarıdaki tablodan hedef oyuncuyu seçin.",
+      confirmReset: "Tüm kayıtlar silinip GEÇMİŞ OYUNLAR'a kaydedilecek. Emin misiniz?",
+      noHistory: "Henüz kaydedilmiş bir oyun geçmişi bulunmuyor."
     }
   },
   en: {
@@ -30,6 +33,7 @@ const translations = {
     cancelSelection: "Cancel Selection", whatHappened: "What happened to this player?", actionHistory: "Action History",
     searchPlaceholder: "Search logs...", freeNotes: "Free Notes", notesPlaceholder: "Write your suspicions, timings, or contradictions here...",
     feedbackTitle: "Contact Us", send: "Send", feedbackBtn: "💬 Feedback",
+    historyBtn: "📜 Game History", pastGames: "Past Games", clearHistory: "Clear All",
     roles: {
       "Doktor": "Doctor", "Deli": "Insane", "Polis": "Police", "Gözcü": "Lookout", "Dedektif": "Investigator",
       "Tuzakçı": "Trapper", "İspiyoncu": "Snitch", "Provakatör": "Provocateur", "İzci": "Tracker",
@@ -39,7 +43,9 @@ const translations = {
     ui: {
       docSaved: "DOCTOR came and SAVED.", docCame: "DOCTOR came (Did not save).", polCaught: "POLICE came and CAUGHT.",
       trapHit: "STEPPED on TRAP.", provCame: "PROVOCATEUR came.",
-      targetWait: "Waiting for Target", targetSelect: "Please select target player from the grid above."
+      targetWait: "Waiting for Target", targetSelect: "Please select target player from the grid above.",
+      confirmReset: "Current logs will be saved to PAST GAMES and cleared. Are you sure?",
+      noHistory: "No saved game history found yet."
     }
   }
 };
