@@ -410,11 +410,84 @@ document.getElementById('btn-new-turn').addEventListener('click', () => {
   turnCount++; addLog(`<b style="color: var(--heading-color);">--- TURN / TUR ${turnCount} ---</b>`, true);
 });
 
+// --- OYUNU SIFIRLAMA VE GEÇMİŞE KAYDETME ---
 document.getElementById('btn-reset-game').addEventListener('click', () => {
-  if(confirm("Emin misiniz / Are you sure?")) {
-    logList.innerHTML = ''; turnCount = 1; document.getElementById('manual-notes').value = '';
-    cards.forEach(card => { card.querySelector('.status-icon').style.display = 'none'; const rc = card.querySelector('.roles-container'); if(rc) rc.remove(); });
+  if(confirm(t('confirmReset', 'ui'))) {
+    
+    // Geçmişe Kayıt İşlemi (Ekranda log varsa)
+    const listItems = logList.querySelectorAll('li');
+    if (listItems.length > 0) {
+      let currentLogs = [];
+      // Listede en yeni log üstte (prepend) olduğu için, tersten okuyarak kronolojik sıraya koyuyoruz
+      for (let i = listItems.length - 1; i >= 0; i--) {
+        const span = listItems[i].querySelector('span');
+        if (span) currentLogs.push(span.innerHTML);
+      }
+      
+      const gameRecord = {
+        date: new Date().toLocaleString(currentLang === 'tr' ? 'tr-TR' : 'en-US'),
+        logs: currentLogs
+      };
+
+      let history = JSON.parse(localStorage.getItem('feignTrackerHistory')) || [];
+      history.unshift(gameRecord); // En yeni oyunu en başa ekle
+      if (history.length > 15) history.pop(); // Tarayıcıyı yormamak için sadece son 15 oyunu tut
+      localStorage.setItem('feignTrackerHistory', JSON.stringify(history));
+    }
+
+    // Temizleme İşlemi
+    logList.innerHTML = ''; 
+    turnCount = 1; 
+    document.getElementById('manual-notes').value = '';
+    cards.forEach(card => { 
+      card.querySelector('.status-icon').style.display = 'none'; 
+      const rc = card.querySelector('.roles-container'); 
+      if(rc) rc.remove(); 
+    });
     resetSelection();
+  }
+});
+
+// --- GEÇMİŞ PANELİNİ ÇİZME (RENDER) VE SİLME ---
+function renderHistoryPanel() {
+  const container = document.getElementById('history-list-container');
+  container.innerHTML = '';
+  let history = JSON.parse(localStorage.getItem('feignTrackerHistory')) || [];
+
+  if (history.length === 0) {
+    container.innerHTML = `<p style="text-align:center; color:#7f8fa6; margin-top:20px; font-style:italic;">${t('noHistory', 'ui')}</p>`;
+    return;
+  }
+
+  history.forEach((game) => {
+    const gameDiv = document.createElement('div');
+    gameDiv.className = 'history-record';
+
+    const dateDiv = document.createElement('div');
+    dateDiv.className = 'history-date';
+    dateDiv.innerText = game.date;
+    gameDiv.appendChild(dateDiv);
+
+    const ul = document.createElement('ul');
+    ul.style.listStyleType = 'none'; ul.style.padding = '0'; ul.style.margin = '0';
+    
+    game.logs.forEach(logHtml => {
+      const li = document.createElement('li');
+      li.style.padding = "3px 0";
+      li.innerHTML = logHtml; 
+      ul.appendChild(li);
+    });
+
+    gameDiv.appendChild(ul);
+    container.appendChild(gameDiv);
+  });
+}
+
+// Tüm Geçmişi Temizleme Butonu
+document.getElementById('clear-history-btn').addEventListener('click', () => {
+  if(confirm("Tüm oyun geçmişiniz kalıcı olarak silinecektir. / All past game history will be permanently deleted. Are you sure?")) {
+    localStorage.removeItem('feignTrackerHistory');
+    renderHistoryPanel(); // Listeyi anında boşalt
   }
 });
 
