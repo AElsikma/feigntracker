@@ -111,8 +111,14 @@ cards.forEach(card => {
         return;
       }
 
-      if (pendingAction === 'went') {
-        addLog(`<span style="color:${getColor(activePlayer)}">${activePlayer}</span> ➔ <span style="color:${getColor(clickedPlayer)}">${clickedPlayer}</span>'a gitti.`);
+     if (pendingAction === 'went') {
+        const bg = 'rgba(0,0,0,0.45)'; // Standart gri arka plan
+        addLog(
+          `<b style="color:${getColor(activePlayer)}; background:${bg}; padding:2px 5px; border-radius:4px;">${activePlayer}</b> ` +
+          `➔ ` +
+          `<b style="color:${getColor(clickedPlayer)}; background:${bg}; padding:2px 5px; border-radius:4px;">${clickedPlayer}</b> ` +
+          `hedefine gitti.`
+        );
         resetSelection();
         return;
       }
