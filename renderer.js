@@ -649,9 +649,9 @@ if (sendFeedbackBtn) {
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          mesaj: feedbackText,
-          tarih: new Date().toLocaleString(),
-          dil: currentLang === 'tr' ? "Türkçe" : "English"
+          message: feedbackText,
+date: new Date().toLocaleString(),
+language: currentLang === 'tr' ? "Türkçe" : "English"
         })
       });
       if (response.ok) {
